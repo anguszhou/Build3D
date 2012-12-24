@@ -38,9 +38,6 @@
 #include <stdlib.h>
 #include <sys\stat.h>
 
-
-
-
 #include <osgDB/Registry>
 #include <osgDB/ReadFile>
 #include <osgDB/ReaderWriter>
@@ -61,9 +58,6 @@ Q_DECLARE_METATYPE(QDockWidget::DockWidgetFeatures)
 int MainWindow::i=0;
 int MainWindow::j=0;
 
-
-
-
 MainWindow::MainWindow(const QMap<QString, QSize> &customSizeHints,
                         QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
@@ -71,15 +65,12 @@ MainWindow::MainWindow(const QMap<QString, QSize> &customSizeHints,
     setObjectName("MainWindow");
     setWindowTitle("3D Building Reconstruction");
 	
-	
-
 	_glWidget = new ViewerQT;
     _glWidget->setMinimumSize(400, 400);
 
 	QSplitter *splitterMain = new QSplitter(Qt::Horizontal,0);
 
 	pScroll = new QScrollArea(splitterMain);
-
 
 	splitterMain->addWidget(pScroll);
 	splitterMain->addWidget(_glWidget);
@@ -90,25 +81,20 @@ MainWindow::MainWindow(const QMap<QString, QSize> &customSizeHints,
 	pScroll->setWidget(previewwidget);
 	pScroll->setWidgetResizable(false);
 
-
-
 	previewwidget->setAutoFillBackground(true);
 	previewwidget->setFixedSize(400,200);
 	picGird = new QGridLayout(previewwidget);
 	previewwidget->setLayout(picGird);
 	//picGird->columnMinimumWidth(500);
-	
 
 	setCentralWidget(splitterMain);
     
-
     setupToolBar();
     setupMenuBar();
-    //setupDockWidgets(customSizeHints);
 
+    //setupDockWidgets(customSizeHints);
     //statusBar()->showMessage(tr("Status Bar"));
 
-	//
 	m_pBuildingData = new CBuildingData;
 }
 
@@ -116,9 +102,6 @@ void MainWindow::actionTriggered(QAction *action)
 {
     qDebug("action '%s' triggered", action->text().toLocal8Bit().data());
 }
-
-
-
 
 //setup Tool Bar include open pictures , model and build model
 void MainWindow::setupToolBar()
@@ -128,9 +111,7 @@ void MainWindow::setupToolBar()
 	QToolBar* toolBar1 = addToolBar(tr("Tool Bar 1"));
 	QAction* openAction = new QAction(QIcon("./res/open_model.png"), tr("&LoadModel"), this);
 	connect(openAction, SIGNAL(triggered()), SLOT(loadmodel()));
-	
-		
-
+			
 	//set show model button
 	QAction *showModel = new QAction(tr("&Show Model"), this);
 	showModel->setStatusTip(tr("Show Model..."));
@@ -146,8 +127,6 @@ void MainWindow::setupToolBar()
 
 	//set savemodel button
 	QAction *savemodel = new QAction(tr("&Save Model"), this);
-	//openPics->setShortcut(QKeySequence::Open);
-	//openPics->setStatusTip(tr("Open Pictures..."));
 	savemodel->setIcon(QIcon("./res/save_model.png"));
 	connect(savemodel , SIGNAL(triggered()) ,  this , SLOT (savemodel()));
 
@@ -183,8 +162,6 @@ void MainWindow::setupToolBar()
 	hidePic->setIcon(QIcon("./res/clear_pic.png"));
 	connect(hidePic , SIGNAL(triggered()) ,  this , SLOT (hide()));*/
 
-
-
 	toolBar1->addAction(openPics);
 	toolBar1->addAction(buildModel);
 	toolBar1->addAction(openAction);
@@ -192,17 +169,10 @@ void MainWindow::setupToolBar()
 	toolBar1->addAction(savemodel);
 	toolBar1->addAction(cleanDir);
 	
-	
-
 	toolBar1->addAction(config);
 	toolBar1->addAction(search);
 	toolBar1->addAction(help);
-	
-    //for (int i = 0; i < 3; ++i) {
-    //    ToolBar *tb = new ToolBar(QString::fromLatin1("Tool Bar %1").arg(i + 1), this);
-    //    toolBars.append(tb);
-    //    addToolBar(tb);
-    //}
+
 }
 
 void MainWindow::setupMenuBar()
@@ -221,7 +191,6 @@ void MainWindow::setupMenuBar()
     connect(action, SIGNAL(triggered()), this, SLOT(switchLayoutDirection()));
 
     menu->addSeparator();
-
     menu->addAction(tr("&Quit"), this, SLOT(close()));
 
     mainWindowMenu = menuBar()->addMenu(tr("Main window"));
@@ -277,8 +246,6 @@ void MainWindow::setDockOptions()
     QMainWindow::setDockOptions(opts);
 }
 
-
-
 void MainWindow::savemodel()
 {
 	
@@ -288,8 +255,6 @@ void MainWindow::savemodel()
 	if (savefileName.isEmpty())
 		return;
 	
-
-
 	//qDebug() << loadmodel(); 
 	//QString loadfileName = loadmodel();
 	//QByteArray loadba = loadfileName.toLatin1();
@@ -299,11 +264,6 @@ void MainWindow::savemodel()
 	const char *ptr = ".ply";
 	const char *p = strstr(savefn.c_str(),ptr);
 
-	
-
-
-
-
 	if(p)
 	{
 		//if(loadfileName != "")
@@ -311,20 +271,10 @@ void MainWindow::savemodel()
 		//else
 			QFile::copy("./model_data/models/option-0000.ply",savefileName);
 	}
-
 	else
-	{
-		
+	{		
 			osgDB::writeNodeFile(*(_glWidget->getSceneData()),savefn,NULL);
-	
-			
-
-	}
-	//loadfileName = NULL;
-		
-
-	
-
+	}			
 }
 
 QAction *addAction(QMenu *menu, const QString &text, QActionGroup *group, QSignalMapper *mapper,
@@ -437,14 +387,13 @@ void MainWindow::setupDockWidgets(const QMap<QString, QSize> &customSizeHints)
         dockWidgetMenu->addMenu(swatch->menu);
     }
  
-	////ColorSwatch* swatch = new ColorSwatch(tr(sets[0].name), this, Qt::WindowFlags(sets[0].flags));
+	//ColorSwatch* swatch = new ColorSwatch(tr(sets[0].name), this, Qt::WindowFlags(sets[0].flags));
 	//QDockWidget *blackDockWidget = new QDockWidget(tr("PicturesViewer"));
 	//blackDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea); 
-	////blackDockWidget->setFeatures();
- //     /*  QString name = QString::fromLatin1(sets[0].name);
- //       if (customSizeHints.contains(name))
- //           swatch->setCustomSizeHint(customSizeHints.value(name));*/
-	//	
+	//blackDockWidget->setFeatures();
+    /*  QString name = QString::fromLatin1(sets[0].name);
+       if (customSizeHints.contains(name))
+            swatch->setCustomSizeHint(customSizeHints.value(name));*/	
 	//	pScroll = new QScrollArea(blackDockWidget);	
 	//	blackDockWidget->setWidget(pScroll);
 	//	
@@ -454,8 +403,7 @@ void MainWindow::setupDockWidgets(const QMap<QString, QSize> &customSizeHints)
 	//	previewwidget->setAutoFillBackground(true);
 	//	picGird = new QGridLayout(previewwidget);
 	//	previewwidget->setLayout(picGird);
- //       addDockWidget(sets[0].area, blackDockWidget);
-		
+    //  addDockWidget(sets[0].area, blackDockWidget);	
 }
 
 void MainWindow::setCorner(int id)
@@ -532,7 +480,6 @@ void MainWindow::loadmodel()
 	
 	if(flag == 9)
 	{
-
 		m_pBuildingData->load_3d_data(fn);
 		// Set draw geometry
 		osg::ref_ptr<osg::Geode> geode = new osg::Geode;
@@ -560,81 +507,7 @@ void MainWindow::loadmodel()
 		osgUtil::Optimizer optimizer;
 		optimizer.optimize(mt.get());
 		_glWidget->setSceneData(mt);	
-		
-		/*
-		osg::Geode* geode = new osg::Geode();    
-		osg::Geometry* geom = new osg::Geometry();   
- 
-		osg::Vec3Array* v= new osg::Vec3Array();   
-		v->push_back(osg::Vec3(0.0f,0.0f,0.0f));   
-		v->push_back(osg::Vec3(1.0f,0.0f,0.0f));   
-		v->push_back(osg::Vec3(1.0f,0.0f,1.0f));   
-		v->push_back(osg::Vec3(0.0f,0.0f,1.0f));   
-		v->push_back(osg::Vec3(0.0f,-1.0f,0.0f));     
-		geom->setVertexArray(m_pBuildingData->m_3DBuildingVrts.get());   
-
-		osg::DrawElementsUInt* quad= new osg::DrawElementsUInt(osg::PrimitiveSet::QUADS,0);     
-		quad->push_back(0);   
-		quad->push_back(1);   
-		quad->push_back(2);   
-		quad->push_back(3);   
- 
-		//geom->addPrimitiveSet(quad);   
-
-		osg::DrawElementsUInt* triangle = new osg::DrawElementsUInt(osg::PrimitiveSet::TRIANGLES,0);    
-		triangle->push_back(4);   
-		triangle->push_back(0);   
-		triangle->push_back(3);   
-
-		//geom->addPrimitiveSet(triangle);   
- 
-		osg::Vec4Array* vc = new osg::Vec4Array();    
-		vc->push_back(osg::Vec4(1.0f,0.0f,0.0f,1.0f));   
-		//vc->push_back(osg::Vec4(0.0f,1.0f,0.0f,1.0f));   
-		//vc->push_back(osg::Vec4(0.0f,0.0f,1.0f,1.0f));   
-		//vc->push_back(osg::Vec4(1.0f,1.0f,0.0f,1.0f));   
-
-		osg::TemplateIndexArray<unsigned int ,osg::Array::UIntArrayType,4,4>* colorIndex =    
-			new osg::TemplateIndexArray<unsigned int ,osg::Array::UIntArrayType,4,4>();   
-		colorIndex->push_back(0);   
-		colorIndex->push_back(1);   
-		colorIndex->push_back(2);   
-		colorIndex->push_back(3);   
-		colorIndex->push_back(2);   
-
-		geom->setColorArray(m_pBuildingData->m_3DBuildingClrs.get());    
-		geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);   
-		geom->addPrimitiveSet(
-			new osg::DrawArrays(osg::PrimitiveSet::POINTS, 0, m_pBuildingData->m_3DBuildingVrts->size()));
-		osg::Vec3Array* nc = new osg::Vec3Array();   		  
-		nc->push_back(osg::Vec3(0.0f,-1.0f,0.0f));   
-		geom->setNormalArray(nc);     
-		geom->setNormalBinding(osg::Geometry::BIND_OVERALL);   
-
-		geode->addDrawable(geom);  
-		_glWidget->setSceneData(geode);	
-	
-		*/
-		/*
-		osg::ref_ptr<osg::Geometry> geom = new osg::Geometry();
-		geom->setVertexArray(m_pBuildingData->m_3DBuildingVrts.get());
-		geom->setColorArray(m_pBuildingData->m_3DBuildingClrs.get());
-		geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
-
-		osg::Vec3Array* normals = new osg::Vec3Array;
-		normals->push_back(osg::Vec3(0.0f,-1.0f,0.0f));
-		geom->setNormalArray(normals);
-		geom->setNormalBinding(osg::Geometry::BIND_OVERALL);
-
-		geom->addPrimitiveSet(
-			new osg::DrawArrays(osg::PrimitiveSet::POINTS, 0, m_pBuildingData->m_3DBuildingVrts->size()));
-		osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-		geode->addDrawable(geom.get());
-
-		osg::StateSet* stateset = geode->getOrCreateStateSet();
-		stateset->setMode(GL_LIGHTING,osg::StateAttribute::OFF);
-		_glWidget->setSceneData(geode);	
-		*/
+			
 	}
 	else
 	{
@@ -720,86 +593,9 @@ void MainWindow::showmodel()
 		node ->asGroup() ->getChild(0) ->setNodeMask(0) ;
 		viewer.setSceneData(node) ;
 		osgDB::writeNodeFile(*(viewer.getSceneData()), "free.osg", osgDB::Registry::instance() ->getOptions());*/
-		
-		/*
-		osg::Geode* geode = new osg::Geode();    
-		osg::Geometry* geom = new osg::Geometry();   
- 
-		osg::Vec3Array* v= new osg::Vec3Array();   
-		v->push_back(osg::Vec3(0.0f,0.0f,0.0f));   
-		v->push_back(osg::Vec3(1.0f,0.0f,0.0f));   
-		v->push_back(osg::Vec3(1.0f,0.0f,1.0f));   
-		v->push_back(osg::Vec3(0.0f,0.0f,1.0f));   
-		v->push_back(osg::Vec3(0.0f,-1.0f,0.0f));     
-		geom->setVertexArray(m_pBuildingData->m_3DBuildingVrts.get());   
-
-		osg::DrawElementsUInt* quad= new osg::DrawElementsUInt(osg::PrimitiveSet::QUADS,0);     
-		quad->push_back(0);   
-		quad->push_back(1);   
-		quad->push_back(2);   
-		quad->push_back(3);   
- 
-		//geom->addPrimitiveSet(quad);   
-
-		osg::DrawElementsUInt* triangle = new osg::DrawElementsUInt(osg::PrimitiveSet::TRIANGLES,0);    
-		triangle->push_back(4);   
-		triangle->push_back(0);   
-		triangle->push_back(3);   
-
-		//geom->addPrimitiveSet(triangle);   
- 
-		osg::Vec4Array* vc = new osg::Vec4Array();    
-		vc->push_back(osg::Vec4(1.0f,0.0f,0.0f,1.0f));   
-		//vc->push_back(osg::Vec4(0.0f,1.0f,0.0f,1.0f));   
-		//vc->push_back(osg::Vec4(0.0f,0.0f,1.0f,1.0f));   
-		//vc->push_back(osg::Vec4(1.0f,1.0f,0.0f,1.0f));   
-
-		osg::TemplateIndexArray<unsigned int ,osg::Array::UIntArrayType,4,4>* colorIndex =    
-			new osg::TemplateIndexArray<unsigned int ,osg::Array::UIntArrayType,4,4>();   
-		colorIndex->push_back(0);   
-		colorIndex->push_back(1);   
-		colorIndex->push_back(2);   
-		colorIndex->push_back(3);   
-		colorIndex->push_back(2);   
-
-		geom->setColorArray(m_pBuildingData->m_3DBuildingClrs.get());    
-		geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);   
-		geom->addPrimitiveSet(
-			new osg::DrawArrays(osg::PrimitiveSet::POINTS, 0, m_pBuildingData->m_3DBuildingVrts->size()));
-		osg::Vec3Array* nc = new osg::Vec3Array();   		  
-		nc->push_back(osg::Vec3(0.0f,-1.0f,0.0f));   
-		geom->setNormalArray(nc);     
-		geom->setNormalBinding(osg::Geometry::BIND_OVERALL);   
-
-		geode->addDrawable(geom);  
-		_glWidget->setSceneData(geode);	
-	
-		*/
-		/*
-		osg::ref_ptr<osg::Geometry> geom = new osg::Geometry();
-		geom->setVertexArray(m_pBuildingData->m_3DBuildingVrts.get());
-		geom->setColorArray(m_pBuildingData->m_3DBuildingClrs.get());
-		geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
-
-		osg::Vec3Array* normals = new osg::Vec3Array;
-		normals->push_back(osg::Vec3(0.0f,-1.0f,0.0f));
-		geom->setNormalArray(normals);
-		geom->setNormalBinding(osg::Geometry::BIND_OVERALL);
-
-		geom->addPrimitiveSet(
-			new osg::DrawArrays(osg::PrimitiveSet::POINTS, 0, m_pBuildingData->m_3DBuildingVrts->size()));
-		osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-		geode->addDrawable(geom.get());
-
-		osg::StateSet* stateset = geode->getOrCreateStateSet();
-		stateset->setMode(GL_LIGHTING,osg::StateAttribute::OFF);
-		_glWidget->setSceneData(geode);	
-		*/
-		}
-	
+	}	
 	else
-	{
-		
+	{	
 		osg::ref_ptr<osg::Node> loadedModel = osgDB::readNodeFile(fn.c_str());
 		osg::ref_ptr<osg::Group> root = new osg::Group();
 		root->addChild(loadedModel.get());
@@ -815,11 +611,6 @@ void MainWindow::showmodel()
 	_glWidget->ResetCameraPara();
 	_glWidget->update();
 }
-
-
-
-
-
 
 //open pictures 
 void MainWindow::openFiles()
@@ -838,7 +629,7 @@ void MainWindow::openFiles()
 	picDir=QFileDialog::getExistingDirectory(this, tr("Please choose a directory of pictures!"),QDir::currentPath(), 
 																									QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly);
 	if (!picDir.isEmpty() )
-{
+	{
 		QDir *dir = new QDir(picDir);
 		QStringList filter ;
 		filter<<"*.jpg";
@@ -857,49 +648,45 @@ void MainWindow::openFiles()
 	QStringList::Iterator it = list.begin();
 	while(it != list.end()) 
 	{					
-     		//label->clear();
-			QString tt = picDir+"\\"+*it;
-			QByteArray tname = tt.toLatin1();
-			std::string ttname(tname.data());    
-			int lentt = tt.length(); 
-			
-			const char *ttnamechar = ttname.c_str();
-			
-			//char *ptr = ".JPG";
-			QString jpg = ".JPG";
-			int x = tt.indexOf(jpg);
-			//const char *ptr1 = ".JPG";
-			/*cout << "x" << x << endl;
-			cout << "len = " << lentt;*/
-			
-			
-			if(x!=0)
-			{	
-				//string newname =  ttname + ".jpg";
-				//remove_chars(p,ptr);
-				QString ttre = tt.replace(lentt-4,4,".jpg");
-				//QFile::rename(tt,ttre);
-				QByteArray qq = ttre.toLatin1();
-				std::string ttrename = (qq.data());
-				const char *ttrenamechar = ttrename.c_str(); 
-				rename(ttnamechar,ttrenamechar);
-				qDebug()<< "rename"<<ttre<<tt;
-				
-				
-			}
-			
-			
-			createThumbnail(tt);
-			
+ 		//label->clear();
+		QString tt = picDir+"\\"+*it;
+		QByteArray tname = tt.toLatin1();
+		std::string ttname(tname.data());    
+		int lentt = tt.length(); 
+		
+		const char *ttnamechar = ttname.c_str();
+		
+		//char *ptr = ".JPG";
+		QString jpg = ".JPG";
+		int x = tt.indexOf(jpg);
+		//const char *ptr1 = ".JPG";
+		/*cout << "x" << x << endl;
+		cout << "len = " << lentt;*/
+					
+		if(x!=0)
+		{	
+			//string newname =  ttname + ".jpg";
+			//remove_chars(p,ptr);
+			QString ttre = tt.replace(lentt-4,4,".jpg");
+			//QFile::rename(tt,ttre);
+			QByteArray qq = ttre.toLatin1();
+			std::string ttrename = (qq.data());
+			const char *ttrenamechar = ttrename.c_str(); 
+			rename(ttnamechar,ttrenamechar);
+			qDebug()<< "rename"<<ttre<<tt;				
+		}
+		
+		
+		createThumbnail(tt);
+		
 
-			qDebug()<<tt;
-			++it;
-     		
+		qDebug()<<tt;
+		++it;   		
  	}
 	/*picDir=QFileDialog::getExistingDirectory(this, tr("Please choose a directory of pictures!"),QDir::currentPath(), 
 																									QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly);
 	if (!picDir.isEmpty() )
-{
+	{
 		QDir *dir = new QDir(picDir);
 		QStringList filter ;
 		filter<<"*.jpg,*.JPG";
@@ -924,11 +711,6 @@ void MainWindow::openFiles()
 	QByteArray picDirname = picDir.toLatin1();
 	std::string picDname(picDirname.data());              //转换Qstring至const Char*
 	const char *picDnamechar = picDname.c_str();
-
-
-	
-	
-
 	
 	//判断图片大小
 	struct _stat info;  
@@ -936,11 +718,7 @@ void MainWindow::openFiles()
 	int size = info.st_size; 
 	qDebug()<<size;
 	qDebug()<<"pnamechar = " <<pnamechar;
-	
 
-	
-
-	
 	if(size >= 2000000)
 	{
 			while(it != list.end()) 
@@ -955,28 +733,23 @@ void MainWindow::openFiles()
 		imageresize=cvCreateImage(cvSize(640,480),IPL_DEPTH_8U,3);
 		cvResize(image,imageresize,CV_INTER_LINEAR);
 
-
 		cvSaveImage(pnamechar,imageresize);
-
 		cvReleaseImage(&image);
 		cvReleaseImage(&imageresize);
 		createThumbnail(xname);	
      	++it;
  		}
 	}
-
 	else
-
 		while(it != list.end()) 
 		{					
-     		
+	 		
 			QString tt = picDir+"\\"+*it;
 			createThumbnail(tt);		
 			qDebug()<<tt;
 			
-     		++it;
- 		}*/
-	
+ 			++it;
+		}*/	
 }
 
 void MainWindow::createThumbnail(const QString& filename)
@@ -999,8 +772,7 @@ void MainWindow::deleteThread()
 }
 
 void MainWindow::addThumbnail(QImage smallpm)
-{
-	
+{	
 	static int i = 0;
 	static int j = 0;
 	const int lineSize = 7;
@@ -1008,32 +780,17 @@ void MainWindow::addThumbnail(QImage smallpm)
 	//qWarning() << "Small PM:" << smallpm << smallpm.size();
 	
 	/*for(k=0;k<5;k++)
-	{
-		
-		
+	{		
 		label[k] = new QLabel;
 		//label[k]->clear();
 		label[k]->setPixmap(QPixmap::fromImage(smallpm));
-		picGird->addWidget(label[k], j, i);
-		
+		picGird->addWidget(label[k], j, i);		
 	}*/
 
 	label = new QLabel;
 	//label->clear();
 	label->setPixmap(QPixmap::fromImage(smallpm));
 	picGird->addWidget(label, j, i);
-	
-	
-
-	
-
-	
-
-
-	
-	
-	
-
 	
 	//label->hide();
 	//qWarning() << "Label:" <<label << label->isVisible();
@@ -1047,13 +804,9 @@ void MainWindow::addThumbnail(QImage smallpm)
 		j=0;
 		i++;
 		previewwidget->setFixedWidth(previewwidget->width()+10+smallpm.width());
-	}
-	
+	}	
 	qDebug()<<"i="<<i;
-	qDebug()<<"j="<<j;
-
-	
-	
+	qDebug()<<"j="<<j;	
 }
 
 
@@ -1113,8 +866,6 @@ void MainWindow::buildModel()
 	// !!clear widget when open dir
 	//modify list.txt path to absolute path(\) and modify pictures' name in visualize dir drop .rd 	
 	modifyListTXT( appPath, picPath , code->fromUnicode(relativePath).data());
-	
-
 
 	//call Bundle2PMVS to produce camera parameters
 	std::string pathB2P=appPath+"bin\\Bundle2PMVS.exe";
@@ -1122,12 +873,10 @@ void MainWindow::buildModel()
 	qDebug()<<"pathb2p"<<paraB2P.c_str();
 	callApp(pathB2P , paraB2P);
 
-
 	//call RadialUndistort to produce camera parameters
 	std::string pathRadia=appPath+"bin\\RadialUndistort.exe";
 	std::string paraRadia =  "\""+appPath+"list.txt \"  " +"\""+appPath+"bundle\\bundle.out \"  ";
 	callApp(pathRadia , paraRadia);
-
 
 	//build directory of pmvs2
 	std::string dir = "md  "+appPath+ "model_data";
@@ -1138,8 +887,7 @@ void MainWindow::buildModel()
 	system(model.c_str());
 	system(txt.c_str());
 	system(visualize.c_str());
-	
-	
+		
 	//std::string pics  = appPath+"example\\ET\\*.jpg\0";
 	//std::string to = appPath+ "model_data\\visualize\0 ";
 	//cpfiles(pics , to);
@@ -1149,40 +897,39 @@ void MainWindow::buildModel()
 	int num = 0;
 	while(it != picList.end()) 
 	{						
-			QString tt = picDir+"\\"+*it;
-			QFileInfo fi (tt);	
-			
-			std::string  basename =  code->fromUnicode(fi.baseName()).data();
-			std::string pcopy =  "copy  "+picPath+"\\"+basename+".rd.jpg   "+appPath+ "model_data\\visualize\\"; 
-			std::string isExist = picPath+"\\"+basename+".rd.jpg";
-			if(isPicExsit(isExist))
-			{
-				system(pcopy.c_str());
-				//qDebug()<<pcopy.c_str();
+		QString tt = picDir+"\\"+*it;
+		QFileInfo fi (tt);	
+		
+		std::string  basename =  code->fromUnicode(fi.baseName()).data();
+		std::string pcopy =  "copy  "+picPath+"\\"+basename+".rd.jpg   "+appPath+ "model_data\\visualize\\"; 
+		std::string isExist = picPath+"\\"+basename+".rd.jpg";
+		if(isPicExsit(isExist))
+		{
+			system(pcopy.c_str());
+			//qDebug()<<pcopy.c_str();
 
-				std::stringstream newstr ;	
-				newstr<<num;
-				std::string numstr = newstr.str();
-				std::string oldname = appPath+ "model_data\\visualize\\"+basename+".rd.jpg";
-				std::string newname ;
-				if(num<10 && num >=0)
-				{								
-					newname = appPath+ "model_data\\visualize\\000"+numstr+".jpg";
-					qDebug()<<newname.c_str();
-				}
-				else if(num>=10 && num <100)
-					newname = appPath+ "model_data\\visualize\\00"+numstr+".jpg";
-				else if(num>=100 && num<1000)
-					newname = appPath+ "model_data\\visualize\\0"+numstr+".jpg";
-				std::string deletename = "del  "+appPath+ "model_data\\visualize\\"+basename+".rd.jpg";
-				//modifyPicName(oldname , newname);
-				rename(oldname.c_str() , newname.c_str());
-				system(deletename.c_str());				
-				num++;
+			std::stringstream newstr ;	
+			newstr<<num;
+			std::string numstr = newstr.str();
+			std::string oldname = appPath+ "model_data\\visualize\\"+basename+".rd.jpg";
+			std::string newname ;
+			if(num<10 && num >=0)
+			{								
+				newname = appPath+ "model_data\\visualize\\000"+numstr+".jpg";
+				qDebug()<<newname.c_str();
 			}
-			++it;
+			else if(num>=10 && num <100)
+				newname = appPath+ "model_data\\visualize\\00"+numstr+".jpg";
+			else if(num>=100 && num<1000)
+				newname = appPath+ "model_data\\visualize\\0"+numstr+".jpg";
+			std::string deletename = "del  "+appPath+ "model_data\\visualize\\"+basename+".rd.jpg";
+			//modifyPicName(oldname , newname);
+			rename(oldname.c_str() , newname.c_str());
+			system(deletename.c_str());				
+			num++;
+		}
+		++it;
  	}
-
 
 	//camera parameters txt to directory above
 	std::string cameratxt = appPath+"\\*.txt\0";
@@ -1212,19 +959,11 @@ void MainWindow::buildModel()
 
 	//load model
 	showmodel();
-	
-	
-
 }
 
 void MainWindow::cleanDir()
 {
 	QTextCodec *code = QTextCodec::codecForName("gb18030");
-	
-	
-	
-	
-	
 	
 	std::string picPath = code->fromUnicode(picDir).data();  
 	
@@ -1238,10 +977,7 @@ void MainWindow::cleanDir()
 
 	system("del .\\bundle\\*.out");
 
-	system("del .\\bundle\\*.ply");
-
-
-	
+	system("del .\\bundle\\*.ply");	
 }
 
 void MainWindow::callApp(std::string appPath , std::string paraPath)
@@ -1282,7 +1018,6 @@ void MainWindow::deleteDir(std::string dir)
 	 FileOp.pTo = NULL;    
 	 FileOp.wFunc = FO_DELETE;  
 	 SHFileOperation(&FileOp) ; 
-
 }
 
 bool MainWindow::isPicExsit(std::string path)
@@ -1335,9 +1070,6 @@ void MainWindow::modifyListTXT(std::string appPath ,std::string picDirPath ,std:
 	system("del picfn/*.rd.jpg");
 	system("del picfn/*.gz");
 }*/
-
-
-
 
 void MainWindow::modifyPicName(std::string from , std::string to)
 {

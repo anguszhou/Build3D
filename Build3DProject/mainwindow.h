@@ -99,11 +99,6 @@ private:
 	
 	static int i ;
 	static int j ;
-	int k;
-
-	
-	
+	int k;	
 };
-
-
 #endif
