@@ -18,6 +18,7 @@
 #include "thumbnailthread.h"
 #include "textio.h"
 #include "ReaderWriterVRML2.h"
+#include "qsplat/qsplat_guimain.h"
 #include <QtGui>
 #include <QLayout>
 #include <QLabel>

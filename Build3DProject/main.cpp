@@ -57,7 +57,6 @@ int main(int argc, char **argv)
 	// Initial configuration
 	osgDB::Registry::instance()->addFileExtensionAlias("wrl", "vrml");
 
-	//
     MainWindow mainWin(customSizeHints);
 
     mainWin.showMaximized();
