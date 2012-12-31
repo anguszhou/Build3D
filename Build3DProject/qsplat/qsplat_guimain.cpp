@@ -424,7 +424,7 @@ bool QSplatGUI::idle()
 	if (dorefine && !theQSplat_Model->can_refine()) {
 		updatestatus("Done refining");
 		if (showlight == SHOWLIGHT_ON || showprogressbar == PROGRESS_ON) {
-			usleep(10000);
+			uusleep(10000);
 			return false;
 		} else {
 			return true;

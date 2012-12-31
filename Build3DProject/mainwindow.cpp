@@ -18,7 +18,7 @@
 #include "thumbnailthread.h"
 #include "textio.h"
 #include "ReaderWriterVRML2.h"
-#include "qsplat/qsplat_guimain.h"
+#include "qsplat/qsplat_make_main.h"
 #include <QtGui>
 #include <QLayout>
 #include <QLabel>
@@ -188,6 +188,14 @@ void MainWindow::setupMenuBar()
 
 	menu->addSeparator();
 
+	action = menu->addAction(tr("Build QsFile"));
+	connect(action, SIGNAL(triggered()), this, SLOT(buildQsFile()));
+
+	action = menu->addAction(tr("Draw QsFile"));
+	connect(action, SIGNAL(triggered()), this, SLOT(drawQsFile()));
+
+	menu->addSeparator();
+
     action = menu->addAction(tr("Switch layout direction"));
     connect(action, SIGNAL(triggered()), this, SLOT(switchLayoutDirection()));
 
@@ -220,6 +228,108 @@ void MainWindow::setupMenuBar()
     action->setCheckable(true);
     action->setChecked(dockOptions() & VerticalTabs);
     connect(action, SIGNAL(toggled(bool)), this, SLOT(setDockOptions()));
+
+	//set qsplat options menu
+	QMenu *Options = menuBar()->addMenu(tr("Options"));
+	action = Options->addAction(tr("Shiny"));
+	action->setCheckable(true);
+	action->setChecked(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = Options->addAction(tr("Backface Cull"));
+	action->setCheckable(true);
+	action->setChecked(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = Options->addAction(tr("Show Light"));
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = Options->addAction(tr("Show Refinement"));
+	action->setCheckable(true);
+	action->setChecked(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = Options->addAction(tr("Auto-spin"));
+	action->setCheckable(true);
+	action->setChecked(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	//set qsplat driver menu
+	QMenu *driver = menuBar()->addMenu(tr("Driver"));
+	QMenu *openGL = driver->addMenu(tr("OpenGL"));
+	QActionGroup *opengls = new QActionGroup(this); 
+	action = openGL->addAction(tr("Points"));
+	opengls->addAction(action);
+	action->setCheckable(true);
+	action->setChecked(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = openGL->addAction(tr("Round Points"));
+	opengls->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = openGL->addAction(tr("Quads"));
+	opengls->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = openGL->addAction(tr("Poly Circles"));
+	opengls->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = openGL->addAction(tr("Poly Ellipses"));
+	opengls->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	//set qsplat software menu
+	QMenu *software = driver->addMenu(tr("Software"));
+	QActionGroup *softwares = new QActionGroup(this); 
+	action = software->addAction(tr("Z-Buffer + GL Blit"));
+	softwares->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = software->addAction(tr("Z-Buffer"));
+	softwares->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = software->addAction(tr("Tiles + GL Blit"));
+	softwares->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = software->addAction(tr("Tiles"));
+	softwares->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = software->addAction(tr("Optimal + GL Blit"));
+	softwares->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = software->addAction(tr("Optimal"));
+	softwares->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	//set qsplat visualizations
+	QMenu *visualizations = driver->addMenu(tr("Visualizations"));
+	QActionGroup *visuals = new QActionGroup(this); 
+	action = visualizations->addAction(tr("Small Ellipses"));
+	visuals->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+
+	action = visualizations->addAction(tr("Spheres"));
+	visuals->addAction(action);
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
 
     QMenu *toolBarMenu = menuBar()->addMenu(tr("Tool bars"));
     for (int i = 0; i < toolBars.count(); ++i)
@@ -450,6 +560,54 @@ void MainWindow::switchLayoutDirection()
         qApp->setLayoutDirection(Qt::LeftToRight);
 }
 
+
+//Build .qs file from .ply file
+void MainWindow::buildQsFile()
+{
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Build .qs from .ply"),".",tr("PLY Files(*.ply)"));
+	if (fileName.isEmpty())
+		return;
+	QByteArray ba = fileName.toLatin1();
+	std::string fn(ba.data());
+    char* param = "point";
+	int result = build_ply_to_qs(param,fn.c_str());
+    if(result)
+    {
+		QMessageBox::warning(this, "Build .qs information", "Build .qs file from "+fileName+" successful£¡", QMessageBox::Yes);
+    }
+    else
+    {
+	    QMessageBox::warning(this, "Build .qs information","Build .qs file from "+fileName+" failed£¡" , QMessageBox::Yes);
+    }	
+}
+
+//draw .qs file
+void MainWindow::drawQsFile()
+{
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Select .qs file to draw"),".",tr("QS Files(*.qs)"));
+	if (fileName.isEmpty())
+		return;
+	QByteArray ba = fileName.toLatin1();
+	std::string fn(ba.data());
+
+	theQSplatGUI = new QSplatWin32GUI();
+	theQSplatGUI->SetModel(NULL);
+	QSplat_Model *q = QSplat_Model::Open(fn.c_str());
+
+	if (!q)
+    {
+		QMessageBox::warning(this, "Draw qs file","Can't open "+fileName+" !" , QMessageBox::Yes);
+    }
+    else
+    {
+		QMessageBox::warning(this, "Draw qs file","Can't open " , QMessageBox::Yes);
+		theQSplatGUI->SetModel(q);
+		theQSplatGUI->resetviewer();
+		theQSplatGUI->need_redraw();
+    }
+     //GUI->updatemenus();
+}
+
 // Load model from files
 void MainWindow::loadmodel()
 {
@@ -677,10 +835,7 @@ void MainWindow::openFiles()
 			qDebug()<< "rename"<<ttre<<tt;				
 		}
 		
-		
 		createThumbnail(tt);
-		
-
 		qDebug()<<tt;
 		++it;   		
  	}
@@ -700,9 +855,7 @@ void MainWindow::openFiles()
 	if( list.count() == 0)
 	{
 		return;
-	}
-
-	
+	}	
 	QStringList::Iterator it = list.begin();
 	QString xname = picDir+"\\"+*it;
 	QByteArray yname = xname.toLatin1();

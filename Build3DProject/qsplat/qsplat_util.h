@@ -21,7 +21,7 @@ using std::swap;
 # include <limits.h>
 # include <windows.h>
 # define strncasecmp strnicmp
-# define usleep(x) Sleep((x)/1000)
+# define uusleep(x) Sleep((x)/1000)
 #else
 # include <sys/time.h>
 # include <unistd.h>

@@ -42,6 +42,21 @@ char QSplatWin32GUI::lastFileName[256];
 char QSplatWin32GUI::buildFileName[256];
 
 // Parse command-line options (if any) and create the QSplat window
+QSplatWin32GUI::QSplatWin32GUI() : QSplatGUI()
+{
+	theQSplatGUI = this;
+	resizing = false;
+	ghWndIsMinimized = false;
+	float framerate = 0.0f;
+	int  xborder, yborder;
+	menu_shiny = menu_backfacecull = menu_showprogress = menu_autospin = true;
+	menu_showlight = menu_fullscreen = false;
+
+	xborder = 2*GetSystemMetrics(SM_CXEDGE)+GetSystemMetrics(SM_CXSIZEFRAME); 
+	yborder = 2*GetSystemMetrics(SM_CYBORDER)+2*GetSystemMetrics(SM_CYEDGE)+
+            GetSystemMetrics(SM_CYSIZEFRAME)+GetSystemMetrics(SM_CYSIZE)+
+            GetSystemMetrics(SM_CYMENUSIZE);
+}
 QSplatWin32GUI::QSplatWin32GUI(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			       LPSTR lpszCmdLine, int nCmdShow) : QSplatGUI()
 {

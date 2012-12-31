@@ -13,6 +13,9 @@
 #include <QLabel>
 #include <CString>
 #include "AdapterWidget.h"
+#include "qsplat/qsplat_gui_win32.h"
+
+#define GUI ((QSplatWin32GUI *) theQSplatGUI)
 
 class ToolBar;
 QT_FORWARD_DECLARE_CLASS(QMenu)
@@ -58,6 +61,10 @@ public slots:
     void switchLayoutDirection();
     void setDockOptions();
 	void cleanDir();
+
+	//Qsplat part
+	void buildQsFile();
+	void drawQsFile();
 	//void hidePic();
 
 	//open pictures
@@ -72,7 +79,6 @@ public:
 
 public:
 	ViewerQT*	_glWidget;
-
 	CBuildingData *		m_pBuildingData;
 	
 private:

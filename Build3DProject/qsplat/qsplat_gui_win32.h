@@ -64,6 +64,7 @@ public:
 	bool menu_showprogress, menu_autospin, menu_fullscreen;
 	void updatemenus();
 
+	QSplatWin32GUI();
 	QSplatWin32GUI(HINSTANCE hInstance,HINSTANCE hPrevInstance,
 		       LPSTR lpszCmdLine, int nCmdShow);
 
