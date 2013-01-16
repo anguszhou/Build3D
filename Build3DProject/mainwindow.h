@@ -9,9 +9,12 @@
 #include <QMainWindow>
 #include <QTextEdit>
 #include <QScrollArea>
+#include <QSplitter>
 #include <QGridLayout>
 #include <QLabel>
 #include <CString>
+#include "GLWidget.h"
+#include <QWidget>
 #include "AdapterWidget.h"
 #include "qsplat/qsplat_gui_win32.h"
 
@@ -41,6 +44,8 @@ class MainWindow : public QMainWindow
     QSignalMapper *mapper;
     QList<QDockWidget*> extraDockWidgets;
 	QStringList picList;
+	QSplitter *splitterMain;
+	GLWidget *qsplat_widget;
 	
 
 public:
@@ -94,6 +99,9 @@ private:
 	void modifyPicName(std::string from , std::string to);
 	bool isPicExsit(std::string path);
 	void createThumbnail(const QString& filename);
+	void showOSGAndhideOpengl();
+	void showOpenglAndhideOSG();
+
 	QWidget* previewwidget;
 	QWidget * main;
 	QScrollArea * pScroll;

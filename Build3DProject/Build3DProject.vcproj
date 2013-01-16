@@ -111,7 +111,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Qt\4.8.1\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;C:\Qt\4.8.1\include\QtCore&quot;;&quot;C:\Qt\4.8.1\include\QtOpenGL&quot;;&quot;C:\Qt\4.8.1\include\QtGui&quot;;&quot;C:\Qt\4.8.1\include\QtMultimedia&quot;;&quot;C:\Qt\4.8.1\include\Qt3Support&quot;"
+				AdditionalIncludeDirectories="C:\Qt\4.8.1\include;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;C:\Qt\4.8.1\include\QtCore;C:\Qt\4.8.1\include\QtOpenGL;C:\Qt\4.8.1\include\QtGui;C:\Qt\4.8.1\include\QtMultimedia;C:\Qt\4.8.1\include\Qt3Support"
 				PreprocessorDefinitions="WIN32;QT_LARGEFILE_SUPPORT;QT_CORE_LIB;QT_OPENGL_LIB;$(NOINHERIT)"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
@@ -129,7 +129,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="OpenThreadsd.lib osgd.lib osgDBd.lib osgFXd.lib osgGAd.lib osgManipulatord.lib osgParticled.lib osgShadowd.lib osgSimd.lib osgTerraind.lib osgTextd.lib osgUtild.lib osgViewerd.lib"
-				AdditionalDependencies="C:\Qt\4.8.1\lib\qtmaind.lib C:\Qt\4.8.1\lib\QtCored4.lib C:\Qt\4.8.1\lib\QtGuid4.lib C:\Qt\4.8.1\lib\QtMultimediad4.lib C:\Qt\4.8.1\lib\QtOpenGLd4.lib opengl32.lib glu32.lib C:\Qt\4.8.1\lib\Qt3Supportd4.lib comdlg32.lib osgd.lib osgUtild.lib osgViewerd.lib osgDBd.lib osgManipulatord.lib osgGAd.lib opencv_core230d.lib opencv_highgui230d.lib opencv_imgproc230d.lib opencv_calib3d230d.lib opencv_features2d230d.lib opencv_ml230d.lib opencv_objdetect230d.lib opencv_video230d.lib opencv_contrib230d.lib"
+				AdditionalDependencies="C:\Qt\4.8.1\lib\qtmaind.lib C:\Qt\4.8.1\lib\QtCored4.lib C:\Qt\4.8.1\lib\QtGuid4.lib C:\Qt\4.8.1\lib\QtMultimediad4.lib C:\Qt\4.8.1\lib\QtOpenGLd4.lib opengl32.lib glu32.lib comctl32.lib C:\Qt\4.8.1\lib\Qt3Supportd4.lib comdlg32.lib osgd.lib osgUtild.lib osgViewerd.lib osgDBd.lib osgManipulatord.lib osgGAd.lib opencv_core231d.lib opencv_highgui231d.lib opencv_imgproc231d.lib opencv_calib3d231d.lib opencv_features2d231d.lib opencv_ml231d.lib opencv_objdetect231d.lib opencv_video231d.lib opencv_contrib231d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="&quot;C:\Qt\4.8.1\lib&quot;;.\Math\LM_Lib"
 				GenerateDebugInformation="true"
@@ -172,6 +172,10 @@
 			</File>
 			<File
 				RelativePath=".\BuildingData.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GLWidget.cpp"
 				>
 			</File>
 			<File
@@ -273,6 +277,10 @@
 						Outputs=""
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GLWidget.h"
+				>
 			</File>
 			<File
 				RelativePath=".\mainwindow.h"
@@ -820,10 +828,6 @@
 			</File>
 			<File
 				RelativePath=".\qsplat\qsplat_guimain.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\qsplat\qsplat_main.cpp"
 				>
 			</File>
 			<File

@@ -31,10 +31,8 @@ Leland Stanford Junior University.  All Rights Reserved.
 #define SHOWLIGHT_TIME	2.5f
 #define SHOWPROG_TIME	1.5f
 
-
 // The GUI global variable
 QSplatGUI *theQSplatGUI;
-
 
 // Tell the GUI to use this model
 void QSplatGUI::SetModel(QSplat_Model *q)
@@ -66,6 +64,7 @@ void QSplatGUI::SetModel(QSplat_Model *q)
 // Do a redraw!  That's why we're here...
 void QSplatGUI::redraw()
 {
+	printf((char *)glGetString(GL_VENDOR));
 	// If we have no model, nothing to do
 	if (!theQSplat_Model) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -189,7 +188,8 @@ void QSplatGUI::draw_light()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glFrustum(-.03, .03, -.03, .03, .08, 20);
-	glTranslatef(0, 0, -10);
+	//glTranslatef(0, 0, -10);
+	glTranslatef(0, 0, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -231,8 +231,8 @@ void QSplatGUI::draw_light()
 		glRotatef(acos(lightdir[2])*180.0f/M_PI,
 			  -lightdir[1], lightdir[0], 0);
 	}
-	glTranslatef(0, 0, 1.9f);
-
+	//glTranslatef(0, 0, 1.9f);
+	glTranslatef(0, 0, 0);
 	{
 		GLfloat mat_diffuse[] = { 0.5f, 1.0f, 0.5f, 1.0f };
 		GLfloat light_position[] = { 0.0f, 0.0f, 1.0f, 0.0f };
@@ -244,8 +244,8 @@ void QSplatGUI::draw_light()
 	gluCylinder(q, 0.3f, 0.0f, 0.8f, 8, 1);
 	gluDisk(q, 0.0f, 0.3f, 8, 1);
 	glRotatef(180, 1, 0, 0);
-	glTranslatef(0, 0, 1.7f);
-
+	//glTranslatef(0, 0, 1.7f);
+	glTranslatef(0, 0, 0);
 	{
 		GLfloat mat_diffuse[] = { 0.5f, 0.5f, 1.0f, 1 };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_diffuse);

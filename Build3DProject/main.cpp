@@ -11,6 +11,7 @@
 #include <QPainter>
 #include <QMap>
 #include <qdebug.h>
+#include "GLWidget.h"
 
 void usage()
 {

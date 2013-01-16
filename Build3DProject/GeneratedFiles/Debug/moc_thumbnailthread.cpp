@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'thumbnailthread.h'
 **
-** Created: Fri Nov 2 20:43:38 2012
+** Created: Fri Jan 11 09:34:12 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

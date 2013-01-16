@@ -17,10 +17,8 @@ Leland Stanford Junior University.  All Rights Reserved.
 #include "resource.h"
 #include <queue>
 
-
 #define APPTITLE "QSplat for Win32"
 #define GUI ((QSplatWin32GUI *) theQSplatGUI)
-
 
 class QSplatWin32GUI : public QSplatGUI {
 public:

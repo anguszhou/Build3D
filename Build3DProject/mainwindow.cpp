@@ -33,7 +33,6 @@
 #include <io.h>
 #include <sstream>
 #include <osgUtil/Optimizer>
-#include <QSplitter>
 #include <QPixmapCache>
 #include <QFile>
 #include <stdlib.h>
@@ -68,13 +67,18 @@ MainWindow::MainWindow(const QMap<QString, QSize> &customSizeHints,
 	
 	_glWidget = new ViewerQT;
     _glWidget->setMinimumSize(400, 400);
+	qsplat_widget = new GLWidget;
+	qsplat_widget->setMinimumSize(400, 400);
 
-	QSplitter *splitterMain = new QSplitter(Qt::Horizontal,0);
+	splitterMain = new QSplitter(Qt::Horizontal,0);
 
 	pScroll = new QScrollArea(splitterMain);
 
 	splitterMain->addWidget(pScroll);
-	splitterMain->addWidget(_glWidget);
+	splitterMain->addWidget(_glWidget);	
+	splitterMain->addWidget(qsplat_widget);
+
+	showOSGAndhideOpengl();
 
 	splitterMain->setStretchFactor(0,0);
 
@@ -560,7 +564,16 @@ void MainWindow::switchLayoutDirection()
         qApp->setLayoutDirection(Qt::LeftToRight);
 }
 
-
+void MainWindow::showOSGAndhideOpengl()
+{
+	_glWidget->show();
+	qsplat_widget->hide();
+}
+void MainWindow::showOpenglAndhideOSG()
+{
+	_glWidget->hide();
+	qsplat_widget->show();
+}
 //Build .qs file from .ply file
 void MainWindow::buildQsFile()
 {
@@ -590,7 +603,6 @@ void MainWindow::drawQsFile()
 	QByteArray ba = fileName.toLatin1();
 	std::string fn(ba.data());
 
-	theQSplatGUI = new QSplatWin32GUI();
 	theQSplatGUI->SetModel(NULL);
 	QSplat_Model *q = QSplat_Model::Open(fn.c_str());
 
@@ -600,12 +612,10 @@ void MainWindow::drawQsFile()
     }
     else
     {
-		QMessageBox::warning(this, "Draw qs file","Can't open " , QMessageBox::Yes);
+		showOpenglAndhideOSG();
 		theQSplatGUI->SetModel(q);
-		theQSplatGUI->resetviewer();
-		theQSplatGUI->need_redraw();
+		qsplat_widget->updateGL();
     }
-     //GUI->updatemenus();
 }
 
 // Load model from files
@@ -637,6 +647,7 @@ void MainWindow::loadmodel()
 			flag ++;
 	}
 	
+	showOSGAndhideOpengl();
 	if(flag == 9)
 	{
 		m_pBuildingData->load_3d_data(fn);

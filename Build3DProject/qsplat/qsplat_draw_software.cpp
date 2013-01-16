@@ -269,9 +269,9 @@ void end_drawing_software(bool bailed)
 #ifdef WIN32
 		BITMAPINFO info = { { sizeof(BITMAPINFOHEADER),
 			width, height, 1, 32, BI_RGB, 0, 0, 0, 0, 0 }, NULL };
-		::SetStretchBltMode(GUI->hDC,COLORONCOLOR);
-		::StretchDIBits(GUI->hDC,0,0,width, height, 0, 0, width, 
-			height, framebuffer, &info, DIB_RGB_COLORS, SRCCOPY);
+//		::SetStretchBltMode(GUI->hDC,COLORONCOLOR);
+//		::StretchDIBits(GUI->hDC,0,0,width, height, 0, 0, width, 
+//			height, framebuffer, &info, DIB_RGB_COLORS, SRCCOPY);
 #else
 		XShmPutImage(fl_display, GUI->theGLwindow(), fl_get_gc(),
 			     ximg, 0, 0,
