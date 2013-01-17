@@ -18,6 +18,7 @@ protected:
     void resizeGL(int width, int height);
     void keyPressEvent(QKeyEvent *e);
 	void mouseMoveEvent(QMouseEvent *e);
+	void wheelEvent(QWheelEvent * e);
 	bool fullscreen;
 
 	

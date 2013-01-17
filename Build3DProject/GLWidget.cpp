@@ -33,7 +33,17 @@ void GLWidget::initializeGL()
 }
 
 void GLWidget::paintGL()
-{
+{	/*
+	qDebug()<<"options:";	
+	qDebug()<<GUI->menu_shiny;	
+	qDebug()<<GUI->menu_backfacecull;
+	qDebug()<<GUI->menu_showlight;
+	qDebug()<<GUI->menu_showprogress;
+	qDebug()<<GUI->menu_autospin;
+
+	qDebug()<<"Driver:";
+	qDebug()<<GUI->whichDriver;
+	*/
 	GUI->windowHeight = this->height();
 	GUI->windowWidth = this->width();
 	theQSplatGUI->redraw();
@@ -46,25 +56,53 @@ void GLWidget::resizeGL(int width, int height)
 
 void GLWidget::mouseMoveEvent(QMouseEvent *e)
 {
-
+	static QSplatGUI::mousebutton this_button = QSplatGUI::NO_BUTTON;     
+	
+	//L/M/R button + Ctrl/Shift
+	if(((e->buttons() & Qt::LeftButton)||(e->buttons() & Qt::MidButton)||(e->buttons() & Qt::RightButton)) && ((e->modifiers()==Qt::Key_Control) || (e->modifiers()==Qt::Key_Shift)))
+	{	
+		qDebug()<<"L/M/R button + Ctrl/Shift";
+		this_button = QSplatGUI::LIGHT_BUTTON;
+	}// L + R button
+	else if((e->buttons() & Qt::LeftButton) && (e->buttons() & Qt::RightButton))
+	{	
+		this_button = QSplatGUI::TRANSZ_BUTTON;
+	}//M + R button
+	else if((e->buttons() & Qt::MidButton) && (e->buttons() & Qt::RightButton))
+	{
+		this_button = QSplatGUI::LIGHT_BUTTON;
+	}//L button
+	else if((e->buttons() & Qt::LeftButton))
+	{	
+		this_button = QSplatGUI::ROT_BUTTON;
+	}//M button
+	else if((e->buttons() & Qt::MidButton))
+	{	
+		this_button = QSplatGUI::TRANSZ_BUTTON;
+	}//R button
+	else if((e->buttons() & Qt::RightButton))
+	{	
+		this_button = QSplatGUI::TRANSXY_BUTTON;
+	}//no button
+	else
+	{
+		this_button = QSplatGUI::NO_BUTTON;
+	}
+	GUI->mouse(e->globalX() - GUI->windowPosX,
+		(GUI->windowHeight - GUI->windowBorderY) - 
+		(e->globalY() - GUI->windowPosY ),
+		 this_button);
+}
+void GLWidget::wheelEvent(QWheelEvent * e)
+{
+	static QSplatGUI::mousebutton this_button = QSplatGUI::NO_BUTTON;
+	this_button = e->delta() > 0 ? QSplatGUI::UP_WHEEL : QSplatGUI::DOWN_WHEEL;
+	GUI->mouse(e->globalX() - GUI->windowPosX,
+		(GUI->windowHeight - GUI->windowBorderY) - 
+		(e->globalY() - GUI->windowPosY ),
+		this_button);
 }
 void GLWidget::keyPressEvent(QKeyEvent *e)
 {
-	
-
-    switch(e->key())
-    {		
-		case Qt::Key_Left:        
-		case Qt::Key_Right: 
-			{
-				QPoint mousePos;
-				static QSplatGUI::mousebutton this_button = QSplatGUI::NO_BUTTON;
-				
-				this_button = QSplatGUI::LIGHT_BUTTON;       
-				updateGL();
-				break;
-			}
-
-    }
 }
 

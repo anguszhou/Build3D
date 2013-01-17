@@ -70,6 +70,28 @@ public slots:
 	//Qsplat part
 	void buildQsFile();
 	void drawQsFile();
+	void setShiny();
+	void setBackface_cull();
+	void setShow_light();
+	void setShow_refinement();
+	void setAuto_spin();
+
+	void setPoints();
+	void setRound_points();
+	void setQuads();
+	void setPoly_circles();
+	void setPoly_Ellipses();
+
+	void setZBuffer_GLblit();
+	void setZBuffer();
+	void setTiles_GLblit();
+	void setTiles();
+	void setOptimal_GLblit();
+	void setOptimal();
+
+	void setSmail_ellipses();
+	void setSpheres();
+
 	//void hidePic();
 
 	//open pictures

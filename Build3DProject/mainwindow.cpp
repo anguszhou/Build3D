@@ -238,26 +238,26 @@ void MainWindow::setupMenuBar()
 	action = Options->addAction(tr("Shiny"));
 	action->setCheckable(true);
 	action->setChecked(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setShiny()));
 
 	action = Options->addAction(tr("Backface Cull"));
 	action->setCheckable(true);
 	action->setChecked(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setBackface_cull()));
 
 	action = Options->addAction(tr("Show Light"));
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setShow_light()));
 
 	action = Options->addAction(tr("Show Refinement"));
 	action->setCheckable(true);
 	action->setChecked(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setShow_refinement()));
 
 	action = Options->addAction(tr("Auto-spin"));
 	action->setCheckable(true);
 	action->setChecked(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setAuto_spin()));
 
 	//set qsplat driver menu
 	QMenu *driver = menuBar()->addMenu(tr("Driver"));
@@ -267,27 +267,27 @@ void MainWindow::setupMenuBar()
 	opengls->addAction(action);
 	action->setCheckable(true);
 	action->setChecked(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setPoints()));
 
 	action = openGL->addAction(tr("Round Points"));
 	opengls->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setRound_points()));
 
 	action = openGL->addAction(tr("Quads"));
 	opengls->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setQuads()));
 
 	action = openGL->addAction(tr("Poly Circles"));
 	opengls->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setPoly_circles()));
 
 	action = openGL->addAction(tr("Poly Ellipses"));
 	opengls->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setPoly_Ellipses()));
 
 	//set qsplat software menu
 	QMenu *software = driver->addMenu(tr("Software"));
@@ -295,32 +295,32 @@ void MainWindow::setupMenuBar()
 	action = software->addAction(tr("Z-Buffer + GL Blit"));
 	softwares->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setZBuffer_GLblit()));
 
 	action = software->addAction(tr("Z-Buffer"));
 	softwares->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setZBuffer()));
 
 	action = software->addAction(tr("Tiles + GL Blit"));
 	softwares->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setTiles_GLblit()));
 
 	action = software->addAction(tr("Tiles"));
 	softwares->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setTiles()));
 
 	action = software->addAction(tr("Optimal + GL Blit"));
 	softwares->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setOptimal_GLblit()));
 
 	action = software->addAction(tr("Optimal"));
 	softwares->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setOptimal()));
 
 	//set qsplat visualizations
 	QMenu *visualizations = driver->addMenu(tr("Visualizations"));
@@ -328,12 +328,12 @@ void MainWindow::setupMenuBar()
 	action = visualizations->addAction(tr("Small Ellipses"));
 	visuals->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setSmail_ellipses()));
 
 	action = visualizations->addAction(tr("Spheres"));
 	visuals->addAction(action);
 	action->setCheckable(true);
-	connect(action, SIGNAL(toggled(bool)), this, SLOT(buildQsFile()));
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setSpheres()));
 
     QMenu *toolBarMenu = menuBar()->addMenu(tr("Tool bars"));
     for (int i = 0; i < toolBars.count(); ++i)
@@ -341,7 +341,119 @@ void MainWindow::setupMenuBar()
 
     dockWidgetMenu = menuBar()->addMenu(tr("&Dock Widgets"));
 }
-
+// set Options slot method
+void MainWindow::setShiny()
+{
+	GUI->menu_shiny = !GUI->menu_shiny;
+	GUI->set_shiny(GUI->menu_shiny);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setBackface_cull()
+{
+	GUI->menu_backfacecull = !GUI->menu_backfacecull;
+    GUI->set_backfacecull(GUI->menu_backfacecull);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setShow_light()
+{
+	GUI->menu_showlight = !GUI->menu_showlight;
+    GUI->set_showlight(GUI->menu_showlight);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setShow_refinement()
+{
+	GUI->menu_showprogress = !GUI->menu_showprogress;
+    GUI->set_showprogressbar(GUI->menu_showprogress);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setAuto_spin()
+{
+	GUI->menu_autospin = !GUI->menu_autospin;
+    GUI->set_touristmode(!GUI->menu_autospin);
+	qsplat_widget->updateGL();
+}
+// set Driver OpenGL slot method
+void MainWindow::setPoints()
+{
+	GUI->whichDriver = (Driver)OPENGL_POINTS;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setRound_points()
+{
+	GUI->whichDriver = (Driver)OPENGL_POINTS_CIRC;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setQuads()
+{
+	GUI->whichDriver = (Driver)OPENGL_QUADS;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setPoly_circles()
+{
+	GUI->whichDriver = (Driver)OPENGL_POLYS_CIRC;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setPoly_Ellipses()
+{
+	GUI->whichDriver = (Driver)OPENGL_POLYS_ELLIP;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+// set Driver Software method
+void MainWindow::setZBuffer_GLblit()
+{
+	GUI->whichDriver = (Driver)SOFTWARE_GLDRAWPIXELS;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setZBuffer()
+{
+	GUI->whichDriver = (Driver)SOFTWARE;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setTiles_GLblit()
+{
+	GUI->whichDriver = (Driver)SOFTWARE_TILES_GLDRAWPIXELS;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setTiles()
+{
+	GUI->whichDriver = (Driver)SOFTWARE_TILES;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setOptimal_GLblit()
+{
+	GUI->whichDriver = (Driver)SOFTWARE_BEST_GLDRAWPIXELS;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setOptimal()
+{
+	GUI->whichDriver = (Driver)SOFTWARE_BEST;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+// set Driver Visualizations method
+void MainWindow::setSmail_ellipses()
+{
+	GUI->whichDriver = (Driver)OPENGL_POLYS_ELLIP_SMALL;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+void MainWindow::setSpheres()
+{
+	GUI->whichDriver = (Driver)OPENGL_SPHERES;
+	GUI->resetviewer(true);
+	qsplat_widget->updateGL();
+}
+//set MainWindow Dock
 void MainWindow::setDockOptions()
 {
     DockOptions opts;
