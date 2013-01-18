@@ -64,7 +64,7 @@ void QSplatGUI::SetModel(QSplat_Model *q)
 // Do a redraw!  That's why we're here...
 void QSplatGUI::redraw()
 {
-	printf((char *)glGetString(GL_VENDOR));
+	//printf((char *)glGetString(GL_VENDOR));
 	// If we have no model, nothing to do
 	if (!theQSplat_Model) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

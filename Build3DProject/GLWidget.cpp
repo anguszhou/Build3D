@@ -23,7 +23,7 @@ GLWidget::GLWidget(QGLWidget *parent) :
 	theQSplatGUI->set_desiredrate(framerate);
 	std::string fn = "C:\\ply\\toy.qs";
 	QSplat_Model *q = QSplat_Model::Open(fn.c_str());
-	theQSplatGUI->SetModel(q);
+	//theQSplatGUI->SetModel(q);
 }
 
 
@@ -44,14 +44,41 @@ void GLWidget::paintGL()
 	qDebug()<<"Driver:";
 	qDebug()<<GUI->whichDriver;
 	*/
+	GUI->windowPosX=this->geometry().x();
+	GUI->windowPosY=this->geometry().y();
 	GUI->windowHeight = this->height();
 	GUI->windowWidth = this->width();
+	GUI->windowBorderY = 0;
+	
 	theQSplatGUI->redraw();
 }
 
 
 void GLWidget::resizeGL(int width, int height)
 {
+	GUI->windowPosX=this->geometry().x();
+	GUI->windowPosY=this->geometry().y();
+	GUI->windowHeight = this->height();
+	GUI->windowWidth = this->width();
+	GUI->windowBorderY = 0;
+	/*
+	qDebug()<<this->rect().x();	
+	qDebug()<<this->rect().y();
+	qDebug()<<this->rect().height();	
+	qDebug()<<this->rect().width();
+	qDebug()<<this->size().height();	
+	qDebug()<<this->size().width();
+	qDebug()<<this->height();
+	qDebug()<<this->width();
+	qDebug()<<this->geometry().x();
+	qDebug()<<this->geometry().y();
+	qDebug()<<this->geometry().height();
+	qDebug()<<this->geometry().width();
+	qDebug()<<this->frameGeometry().height();
+	qDebug()<<this->frameGeometry().width();
+	qDebug()<<this->frameGeometry().x();
+	qDebug()<<this->frameGeometry().y();
+	*/
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *e)
