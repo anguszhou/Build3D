@@ -724,26 +724,6 @@ void MainWindow::drawQsFile()
     }
     else
     {
-		/*
-		qDebug()<<this->x();	
-		qDebug()<<this->y();
-		qDebug()<<this->height();
-		qDebug()<<this->width();
-		qDebug()<<this->geometry().x();
-		qDebug()<<this->geometry().y();
-		qDebug()<<this->geometry().height();
-		qDebug()<<this->geometry().width();
-		qDebug()<<this->frameGeometry().height();
-		qDebug()<<this->frameGeometry().width();
-		qDebug()<<this->frameGeometry().x();
-		qDebug()<<this->frameGeometry().y();
-		
-		qDebug()<<qsplat_widget->pos().x();	
-		qDebug()<<qsplat_widget->pos().y();
-		qDebug()<<qsplat_widget->height();
-		qDebug()<<qsplat_widget->width();
-		*/
-
 		showOpenglAndhideOSG();
 		theQSplatGUI->SetModel(q);
 		qsplat_widget->updateGL();

@@ -91,7 +91,7 @@ void QSplatGUI::redraw()
 	// Get the distance to the surface, so we know where to put clipping
 	// planes.
 	update_depth();
-
+	
 	// Set the viewport and clear the screen
 	setupGLstate();
 	if ((int)whichDriver < (int)SOFTWARE_GLDRAWPIXELS)
@@ -130,7 +130,7 @@ void QSplatGUI::redraw()
 		draw_progressbar();
 		swapbuffers();
 	}
-
+	
 
 	// Figure out how long that took
 	timestamp end_time;

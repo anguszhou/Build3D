@@ -21,9 +21,7 @@ GLWidget::GLWidget(QGLWidget *parent) :
 	theQSplatGUI->whichDriver =  OPENGL_POINTS ;
 	float framerate = ((int)whichDriver >= (int)SOFTWARE_GLDRAWPIXELS) ? 4.0f : 8.0f;
 	theQSplatGUI->set_desiredrate(framerate);
-	std::string fn = "C:\\ply\\toy.qs";
-	QSplat_Model *q = QSplat_Model::Open(fn.c_str());
-	//theQSplatGUI->SetModel(q);
+
 }
 
 
@@ -44,6 +42,7 @@ void GLWidget::paintGL()
 	qDebug()<<"Driver:";
 	qDebug()<<GUI->whichDriver;
 	*/
+	
 	GUI->windowPosX=this->geometry().x();
 	GUI->windowPosY=this->geometry().y();
 	GUI->windowHeight = this->height();
@@ -119,6 +118,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *e)
 		(GUI->windowHeight - GUI->windowBorderY) - 
 		(e->globalY() - GUI->windowPosY ),
 		 this_button);
+	updateGL();
 }
 void GLWidget::wheelEvent(QWheelEvent * e)
 {
@@ -128,6 +128,7 @@ void GLWidget::wheelEvent(QWheelEvent * e)
 		(GUI->windowHeight - GUI->windowBorderY) - 
 		(e->globalY() - GUI->windowPosY ),
 		this_button);
+	updateGL();
 }
 void GLWidget::keyPressEvent(QKeyEvent *e)
 {
