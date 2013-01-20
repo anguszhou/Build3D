@@ -14,20 +14,21 @@
 GLWidget::GLWidget(QGLWidget *parent) :
     QGLWidget(parent)
 {
-	
+	makeCurrent();
 	fullscreen = false;
 	int whichDriver;
 	theQSplatGUI = new QSplatWin32GUI();
-	theQSplatGUI->whichDriver =  OPENGL_POINTS ;
+	bool a = strncmp((char *)glGetString(GL_VENDOR), "Microsoft", 9);
+	theQSplatGUI->whichDriver  = strncmp((char *)glGetString(GL_VENDOR), "Microsoft", 9) ? OPENGL_POINTS : SOFTWARE_BEST ;
 	float framerate = ((int)whichDriver >= (int)SOFTWARE_GLDRAWPIXELS) ? 4.0f : 8.0f;
 	theQSplatGUI->set_desiredrate(framerate);
-
 }
 
 
 void GLWidget::initializeGL()
 {
 	makeCurrent();
+	
 }
 
 void GLWidget::paintGL()
@@ -49,18 +50,19 @@ void GLWidget::paintGL()
 	GUI->windowWidth = this->width();
 	GUI->windowBorderY = 0;
 	
+	glReadBuffer(GL_BACK);
 	theQSplatGUI->redraw();
 }
 
 
 void GLWidget::resizeGL(int width, int height)
 {
-	GUI->windowPosX=this->geometry().x();
+	/*GUI->windowPosX=this->geometry().x();
 	GUI->windowPosY=this->geometry().y();
 	GUI->windowHeight = this->height();
 	GUI->windowWidth = this->width();
 	GUI->windowBorderY = 0;
-	/*
+	
 	qDebug()<<this->rect().x();	
 	qDebug()<<this->rect().y();
 	qDebug()<<this->rect().height();	

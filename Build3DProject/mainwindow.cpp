@@ -727,6 +727,8 @@ void MainWindow::drawQsFile()
 		showOpenglAndhideOSG();
 		theQSplatGUI->SetModel(q);
 		qsplat_widget->updateGL();
+		 bool done = theQSplatGUI->idle();
+		 qsplat_widget->updateGL();
     }
 }
 

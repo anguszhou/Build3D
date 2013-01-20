@@ -172,7 +172,6 @@ void drawpoint_gl(float cx, float cy, float cz,
 
 		if (currentGLstate != GL_BEGIN_QUADS) {
 			if (currentGLstate != GL_BEGIN_NONE){
-				glReadBuffer(GL_BACK);
 				glEnd();
 			}				
 			glDisable(GL_TEXTURE_2D);
