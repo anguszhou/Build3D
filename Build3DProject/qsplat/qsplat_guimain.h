@@ -34,7 +34,7 @@ public:
 	enum mousebutton { NO_BUTTON, ROT_BUTTON, TRANSXY_BUTTON, TRANSZ_BUTTON,
 			   LIGHT_BUTTON, UP_WHEEL, DOWN_WHEEL };
 
-protected:
+public:
 	// The QSplat structure
 	QSplat_Model *theQSplat_Model;
 

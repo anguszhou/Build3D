@@ -123,6 +123,8 @@ private:
 	void createThumbnail(const QString& filename);
 	void showOSGAndhideOpengl();
 	void showOpenglAndhideOSG();
+	void dorefine();
+	bool checkModel();
 
 	QWidget* previewwidget;
 	QWidget * main;

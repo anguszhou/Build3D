@@ -27,23 +27,11 @@ GLWidget::GLWidget(QGLWidget *parent) :
 
 void GLWidget::initializeGL()
 {
-	makeCurrent();
-	
+	makeCurrent();	
 }
 
 void GLWidget::paintGL()
-{	/*
-	qDebug()<<"options:";	
-	qDebug()<<GUI->menu_shiny;	
-	qDebug()<<GUI->menu_backfacecull;
-	qDebug()<<GUI->menu_showlight;
-	qDebug()<<GUI->menu_showprogress;
-	qDebug()<<GUI->menu_autospin;
-
-	qDebug()<<"Driver:";
-	qDebug()<<GUI->whichDriver;
-	*/
-	
+{
 	GUI->windowPosX=this->geometry().x();
 	GUI->windowPosY=this->geometry().y();
 	GUI->windowHeight = this->height();
@@ -57,29 +45,6 @@ void GLWidget::paintGL()
 
 void GLWidget::resizeGL(int width, int height)
 {
-	/*GUI->windowPosX=this->geometry().x();
-	GUI->windowPosY=this->geometry().y();
-	GUI->windowHeight = this->height();
-	GUI->windowWidth = this->width();
-	GUI->windowBorderY = 0;
-	
-	qDebug()<<this->rect().x();	
-	qDebug()<<this->rect().y();
-	qDebug()<<this->rect().height();	
-	qDebug()<<this->rect().width();
-	qDebug()<<this->size().height();	
-	qDebug()<<this->size().width();
-	qDebug()<<this->height();
-	qDebug()<<this->width();
-	qDebug()<<this->geometry().x();
-	qDebug()<<this->geometry().y();
-	qDebug()<<this->geometry().height();
-	qDebug()<<this->geometry().width();
-	qDebug()<<this->frameGeometry().height();
-	qDebug()<<this->frameGeometry().width();
-	qDebug()<<this->frameGeometry().x();
-	qDebug()<<this->frameGeometry().y();
-	*/
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *e)
