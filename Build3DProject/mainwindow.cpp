@@ -753,11 +753,11 @@ void MainWindow::buildQsFile()
 	int result = build_ply_to_qs(param,fn.c_str());
     if(result)
     {
-		QMessageBox::warning(this, "Build .qs information", "Build .qs file from "+fileName+" successful£¡", QMessageBox::Yes);
+		QMessageBox::warning(this, tr("Build .qs information"), tr("Build .qs file from ")+fileName+tr(" successful!"), QMessageBox::Yes);
     }
     else
     {
-	    QMessageBox::warning(this, "Build .qs information","Build .qs file from "+fileName+" failed£¡" , QMessageBox::Yes);
+	    QMessageBox::warning(this, tr("Build .qs information"),tr("Build .qs file from ")+fileName+tr(" failed!") , QMessageBox::Yes);
     }	
 }
 
