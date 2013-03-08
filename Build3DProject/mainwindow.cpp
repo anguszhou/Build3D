@@ -44,6 +44,8 @@
 #include <osgDB/WriteFile>
 #include <osg/Node>
 #include <osgViewer/Viewer>
+#include <osgGA/StateSetManipulator>
+#include <osgViewer/ViewerEventHandlers>
 
 #include <osgDB/Registry>
 #include <osgDB/ReadFile>
@@ -866,7 +868,8 @@ void MainWindow::loadmodel()
 		osg::ref_ptr<osg::Node> loadedModel = osgDB::readNodeFile(fn.c_str());
 		osg::ref_ptr<osg::Group> root = new osg::Group();
 		root->addChild(loadedModel.get());
-
+		
+		//optimize model 
 		osgUtil::Optimizer optimizer;
 		optimizer.optimize(root.get());
 
@@ -875,6 +878,8 @@ void MainWindow::loadmodel()
 		
 	_file.clear();	
 
+	_glWidget->addEventHandler(new osgGA::StateSetManipulator(_glWidget->getCamera()->getOrCreateStateSet()));
+	_glWidget->addEventHandler(new osgViewer::StatsHandler);
 	_glWidget->ResetCameraPara();
 	_glWidget->update();
 	//return fileName;
