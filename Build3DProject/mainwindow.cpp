@@ -860,6 +860,8 @@ void MainWindow::loadmodel()
 		osgUtil::Optimizer optimizer;
 		optimizer.optimize(mt.get());
 		_glWidget->setSceneData(mt);	
+		_glWidget->addEventHandler(new osgGA::StateSetManipulator(_glWidget->getCamera()->getOrCreateStateSet()));
+		_glWidget->addEventHandler(new osgViewer::StatsHandler);
 			
 	}
 	else
