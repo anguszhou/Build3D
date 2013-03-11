@@ -20,7 +20,7 @@ protected:
 	void mouseMoveEvent(QMouseEvent *e);
 	void wheelEvent(QWheelEvent * e);
 	bool fullscreen;
-
+	double CalFrameRate();
 	
 };
 

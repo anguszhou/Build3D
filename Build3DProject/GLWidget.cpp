@@ -2,6 +2,7 @@
 
 #include <QtCore>
 #include <QtOpenGL>
+#include <time.h>
 
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE  0x809D
@@ -29,7 +30,40 @@ void GLWidget::initializeGL()
 {
 	makeCurrent();	
 }
+/*
+double GLWidget::CalFrameRate(){
+	static int count;
+	static double save;
+	static clock_t last, current;
+	double timegap;
 
+	++count;
+	if(count <= 50){
+		return save;
+	}
+	count = 0 ;
+	current = clock();
+	timegap = (current - last) / (double)CLK_TCK;
+	qDebug()<<"current - last : "<<current - last<<" , CLK_TCK"<<CLK_TCK;	
+	save = 50.0 / timegap;
+	return save;
+}
+*/
+double GLWidget::CalFrameRate(){
+	static float framePerSecond = 0.0f;
+	static float lastTime = 0.0f;
+
+	float currentTime = GetTickCount()* 0.001f;
+	++framePerSecond;
+
+	if(currentTime - lastTime > 1.0f){
+		lastTime = currentTime;
+		qDebug()<<"frame rate is : "<<framePerSecond;	
+		framePerSecond = 0 ;
+	}
+	
+	return 0.0;
+}
 void GLWidget::paintGL()
 {
 	GUI->windowPosX=this->geometry().x();
@@ -40,6 +74,11 @@ void GLWidget::paintGL()
 	
 	glReadBuffer(GL_BACK);
 	theQSplatGUI->redraw();
+	CalFrameRate();
+	/*
+	double frameRate = CalFrameRate();
+	qDebug()<<"frame rate is : "<<frameRate;
+	*/
 }
 
 
