@@ -99,7 +99,7 @@ MainWindow::MainWindow(const QMap<QString, QSize> &customSizeHints,
     
     setupToolBar();
     setupMenuBar();
-
+	drawMode = 0;
     //setupDockWidgets(customSizeHints);
     //statusBar()->showMessage(tr("Status Bar"));
 
@@ -337,6 +337,19 @@ void MainWindow::setupMenuBar()
 	action->setCheckable(true);
 	connect(action, SIGNAL(toggled(bool)), this, SLOT(setSpheres()));
 
+	QMenu *drawMode = menuBar()->addMenu(tr("Draw Mode"));
+	QActionGroup *drawModeGroup = new QActionGroup(this); 
+	action = drawMode->addAction(tr("Ply Point Mode"));
+	drawModeGroup->addAction(action);
+	action->setCheckable(true);
+	action->setChecked(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setPLYMode()));
+
+	action = drawMode->addAction(tr("QSplat Mode"));
+	drawModeGroup->addAction(action); 
+	action->setCheckable(true);
+	connect(action, SIGNAL(toggled(bool)), this, SLOT(setQSMode()));
+
     QMenu *toolBarMenu = menuBar()->addMenu(tr("Tool bars"));
     for (int i = 0; i < toolBars.count(); ++i)
         toolBarMenu->addMenu(toolBars.at(i)->menu);
@@ -509,6 +522,14 @@ void MainWindow::setSpheres()
 		qsplat_widget->updateGL();
 		dorefine();
 	}
+}
+void MainWindow::setPLYMode()
+{
+	drawMode = 0;
+}
+void MainWindow::setQSMode()
+{
+	drawMode = 1;
 }
 //set MainWindow Dock
 void MainWindow::setDockOptions()
@@ -804,7 +825,7 @@ void MainWindow::dorefine()
 // Load model from files
 void MainWindow::loadmodel()
 {
-	QString fileName = QFileDialog::getOpenFileName(this, tr("Load model"));
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Load model"),".",tr("PLY Files(*.ply)"));
 	//QString fileName = "D:\\Build3DProject\\model_data\\models\\option-0000.ply";
 	if (fileName.isEmpty())
 		return;
@@ -812,79 +833,124 @@ void MainWindow::loadmodel()
 	std::string fn(ba.data());
 
 	_glWidget->ClearModelNode();
+	//Draw Ply model
+	if(drawMode == 0){
+		std::fstream _file;		
+		_file.open(fn.c_str() ,std::ios::in );
+		if(_file.fail())
+		{
+			qDebug()<<"list is not exist";	
+			return;
+		};	
 
-	std::fstream _file;		
-	_file.open(fn.c_str() ,std::ios::in );
-	if(_file.fail())
-	{
-		qDebug()<<"list is not exist";	
-		return;
-	};	
-
-	std::string line ;
-	int flag = 0;
-	for( int i=0; i<30 ;i++ )
-	{
-		getline(_file, line,' ');
-		if(line=="float32"||line=="float"||line=="uchar")	
-			flag ++;
-	}
-	
-	showOSGAndhideOpengl();
-	if(flag == 9)
-	{
-		m_pBuildingData->load_3d_data(fn);
-		// Set draw geometry
-		osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-		osg::ref_ptr<osg::Geometry> geom = new osg::Geometry;
-		geom->setVertexArray(m_pBuildingData->m_3DBuildingVrts.get());
-		geom->setColorArray(m_pBuildingData->m_3DBuildingClrs.get());	
+		std::string line ;
+		int flag = 0;
+		for( int i=0; i<30 ;i++ )
+		{
+			getline(_file, line,' ');
+			if(line=="float32"||line=="float"||line=="uchar")	
+				flag ++;
+		}
 		
-		geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);		
-		geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POINTS, 0, m_pBuildingData->m_3DBuildingVrts->size()));
-	
-		osg::StateSet* sset = geom->getOrCreateStateSet();
-		//sset->setMode(GL_LIGHTING, osg::StateAttribute::OFF );
-		osg::Point* p = new osg::Point;
-		p->setSize(4.0f);
-		sset->setAttribute(p);
-		
-		geode->addDrawable(geom);
-
-		osg::ref_ptr<osg::MatrixTransform> mt = new osg::MatrixTransform;
-		osg::Matrix m;
-		m.makeRotate(osg::PI/2.0, 1.f, 0.f, 0.f);
-		mt->setMatrix(m);
-		mt->addChild(geode.get());
-
-		osgUtil::Optimizer optimizer;
-		optimizer.optimize(mt.get());
-		_glWidget->setSceneData(mt);	
-		//_glWidget->addEventHandler(new osgGA::StateSetManipulator(_glWidget->getCamera()->getOrCreateStateSet()));
-		//_glWidget->addEventHandler(new osgViewer::StatsHandler);
+		showOSGAndhideOpengl();
+		//Ply Points Model
+		if(flag == 9)
+		{
+			m_pBuildingData->load_3d_data(fn);
+			// Set draw geometry
+			osg::ref_ptr<osg::Geode> geode = new osg::Geode;
+			osg::ref_ptr<osg::Geometry> geom = new osg::Geometry;
+			geom->setVertexArray(m_pBuildingData->m_3DBuildingVrts.get());
+			geom->setColorArray(m_pBuildingData->m_3DBuildingClrs.get());	
 			
-	}
-	else
-	{
-		//read vertex directly
-		osg::ref_ptr<osg::Node> loadedModel = osgDB::readNodeFile(fn.c_str());
-		osg::ref_ptr<osg::Group> root = new osg::Group();
-		root->addChild(loadedModel.get());
+			geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);		
+			geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POINTS, 0, m_pBuildingData->m_3DBuildingVrts->size()));
 		
-		//optimize model 
-		osgUtil::Optimizer optimizer;
-		optimizer.optimize(root.get());
+			osg::StateSet* sset = geom->getOrCreateStateSet();
+			//sset->setMode(GL_LIGHTING, osg::StateAttribute::OFF );
+			osg::Point* p = new osg::Point;
+			p->setSize(4.0f);
+			sset->setAttribute(p);
+			
+			geode->addDrawable(geom);
+			osg::ref_ptr<osg::Group> root = new osg::Group();
+			root->addChild(geode.get());
+			osgUtil::Optimizer optimizer;
+			optimizer.optimize(root.get());
+			_glWidget->setSceneData(root.get());
+/*
+			osg::ref_ptr<osg::MatrixTransform> mt = new osg::MatrixTransform;
+			osg::Matrix m;
+			m.makeRotate(osg::PI/2.0, 1.f, 0.f, 0.f);
+			mt->setMatrix(m);
+			mt->addChild(geode.get());
 
-		_glWidget->setSceneData(root.get());
+			osgUtil::Optimizer optimizer;
+			optimizer.optimize(mt.get());
+			_glWidget->setSceneData(mt.get());	*/
+			//_glWidget->addEventHandler(new osgGA::StateSetManipulator(_glWidget->getCamera()->getOrCreateStateSet()));
+			//_glWidget->addEventHandler(new osgViewer::StatsHandler);
+				
+		}
+		//PLY Mesh model
+		else
+		{
+			//read vertex directly
+			osg::ref_ptr<osg::Node> loadedModel = osgDB::readNodeFile(fn.c_str());
+			osg::ref_ptr<osg::Group> root = new osg::Group();
+			root->addChild(loadedModel.get());
+			
+			//optimize model 
+			osgUtil::Optimizer optimizer;
+			optimizer.optimize(root.get());
+
+			_glWidget->setSceneData(root.get());
+		}
+			
+		_file.clear();	
+
+		_glWidget->addEventHandler(new osgGA::StateSetManipulator(_glWidget->getCamera()->getOrCreateStateSet()));
+		_glWidget->addEventHandler(new osgViewer::StatsHandler);
+		_glWidget->ResetCameraPara();
+		_glWidget->update();
+		//return fileName;	
 	}
-		
-	_file.clear();	
+	//draw QS model
+	else if(drawMode == 1){
+		char* param = "point";
+		const char* plyFilename = fn.c_str();
+		showOpenglAndhideOSG();
+		int result = build_ply_to_qs(param,plyFilename);
+		if(result)
+		{
+			
+			char str = '.' ,  qsFilename[256]={' '};
+			const char* ptr = strrchr(plyFilename, str);
+			int len = strlen(plyFilename)-strlen(ptr)+1;
+			memcpy(qsFilename , plyFilename , len);
+			strcat(qsFilename , "qs"); 
+			qDebug()<<"qsFilename is : "<<qsFilename;
+			theQSplatGUI->SetModel(NULL);
+			QSplat_Model *q = QSplat_Model::Open(qsFilename);
 
-	_glWidget->addEventHandler(new osgGA::StateSetManipulator(_glWidget->getCamera()->getOrCreateStateSet()));
-	_glWidget->addEventHandler(new osgViewer::StatsHandler);
-	_glWidget->ResetCameraPara();
-	_glWidget->update();
-	//return fileName;
+			if (!q)
+			{
+				QMessageBox::warning(this, "Draw qs file","Can't open "+fileName+" !" , QMessageBox::Yes);
+			}
+			else
+			{
+				showOpenglAndhideOSG();
+				theQSplatGUI->SetModel(q);
+				GUI->resetviewer();
+				qsplat_widget->updateGL();	
+				dorefine();
+			}
+		}
+		else
+		{
+			QMessageBox::warning(this, tr("Build .qs information"),tr("Build .qs file from ")+fileName+tr(" failed!") , QMessageBox::Yes);
+		}	
+	}
 }
 
 //show model

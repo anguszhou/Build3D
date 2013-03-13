@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Wed Jan 23 10:33:33 2013
+** Created: Tue Mar 12 14:51:26 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      33,   14, // methods
+      35,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -60,10 +60,12 @@ static const uint qt_meta_data_MainWindow[] = {
      433,   11,   11,   11, 0x0a,
      453,   11,   11,   11, 0x0a,
      466,   11,   11,   11, 0x0a,
-     478,   11,   11,   11, 0x0a,
-     502,  493,   11,   11, 0x0a,
-     521,   11,   11,   11, 0x0a,
-     542,   11,   11,   11, 0x0a,
+     479,   11,   11,   11, 0x0a,
+     491,   11,   11,   11, 0x0a,
+     503,   11,   11,   11, 0x0a,
+     527,  518,   11,   11, 0x0a,
+     546,   11,   11,   11, 0x0a,
+     567,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -81,9 +83,10 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "setZBuffer()\0setTiles_GLblit()\0"
     "setTiles()\0setOptimal_GLblit()\0"
     "setOptimal()\0setSmail_ellipses()\0"
-    "setSpheres()\0openFiles()\0deleteThread()\0"
-    "filename\0showError(QString)\0"
-    "addThumbnail(QImage)\0buildModel()\0"
+    "setSpheres()\0setPLYMode()\0setQSMode()\0"
+    "openFiles()\0deleteThread()\0filename\0"
+    "showError(QString)\0addThumbnail(QImage)\0"
+    "buildModel()\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -120,11 +123,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 25: _t->setOptimal(); break;
         case 26: _t->setSmail_ellipses(); break;
         case 27: _t->setSpheres(); break;
-        case 28: _t->openFiles(); break;
-        case 29: _t->deleteThread(); break;
-        case 30: _t->showError((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 31: _t->addThumbnail((*reinterpret_cast< QImage(*)>(_a[1]))); break;
-        case 32: _t->buildModel(); break;
+        case 28: _t->setPLYMode(); break;
+        case 29: _t->setQSMode(); break;
+        case 30: _t->openFiles(); break;
+        case 31: _t->deleteThread(); break;
+        case 32: _t->showError((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 33: _t->addThumbnail((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 34: _t->buildModel(); break;
         default: ;
         }
     }
@@ -162,9 +167,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 33)
+        if (_id < 35)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 33;
+        _id -= 35;
     }
     return _id;
 }

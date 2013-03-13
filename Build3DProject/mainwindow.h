@@ -92,6 +92,8 @@ public slots:
 	void setSmail_ellipses();
 	void setSpheres();
 
+	void setPLYMode();
+	void setQSMode();
 	//void hidePic();
 
 	//open pictures
@@ -138,5 +140,6 @@ private:
 	static int i ;
 	static int j ;
 	int k;	
+	int drawMode;
 };
 #endif

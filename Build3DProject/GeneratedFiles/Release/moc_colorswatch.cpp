@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'colorswatch.h'
 **
-** Created: Wed Jan 9 16:09:43 2013
+** Created: Tue Mar 12 14:49:59 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

@@ -11,6 +11,7 @@
 #include "GeomElements.h"
 #include <osgUtil/Optimizer>
 #include <sstream>
+#include <stdlib.h>
 
 
 CBuildingData::CBuildingData(void)
@@ -55,7 +56,12 @@ int CBuildingData::load_3d_data(std::string& fn)
 
 	while(getline(_file, line,'\n'))
 	{    
-		if(line=="end_header")
+		const char* tmp = line.c_str();
+		char tmp2[256] = {" "};
+		char *endFlag = "end_header";
+		memcpy(tmp2, tmp , strlen(tmp));
+
+		if(memcmp(tmp2, endFlag , strlen(endFlag)) == 0)
 		{
 			flag = true;
 			continue;
