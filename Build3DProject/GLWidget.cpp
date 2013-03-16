@@ -52,6 +52,7 @@ double GLWidget::CalFrameRate(){
 double GLWidget::CalFrameRate(){
 	static float framePerSecond = 0.0f;
 	static float lastTime = 0.0f;
+	float returndata ;
 
 	float currentTime = GetTickCount()* 0.001f;
 	++framePerSecond;
@@ -59,10 +60,11 @@ double GLWidget::CalFrameRate(){
 	if(currentTime - lastTime > 1.0f){
 		lastTime = currentTime;
 		qDebug()<<"frame rate is : "<<framePerSecond;	
+		returndata = framePerSecond;
 		framePerSecond = 0 ;
 	}
 	
-	return 0.0;
+	return returndata;
 }
 void GLWidget::paintGL()
 {
@@ -72,12 +74,22 @@ void GLWidget::paintGL()
 	GUI->windowWidth = this->width();
 	GUI->windowBorderY = 0;
 	
-	glReadBuffer(GL_BACK);
+	glReadBuffer(GL_BACK);		
+	theQSplatGUI->framePerSecond = CalFrameRate();
 	theQSplatGUI->redraw();
-	CalFrameRate();
+	
 	/*
 	double frameRate = CalFrameRate();
 	qDebug()<<"frame rate is : "<<frameRate;
+	
+	QPainter painter(this);
+	QPen pen = painter.pen();
+	pen.setColor(Qt::red);
+	QFont font = painter.font();
+	font.setPixelSize(50);
+	painter.setPen(pen);
+	painter.setFont(font);
+	painter.drawText(100,100 ,"123123");
 	*/
 }
 

@@ -37,6 +37,8 @@ public:
 public:
 	// The QSplat structure
 	QSplat_Model *theQSplat_Model;
+	double framePerSecond;
+	void draw_string(const char* str);
 
 private:
 	// Parameters the drawing routine cares about
@@ -127,6 +129,9 @@ public:
 
 	// Tell the GUI to use this model
 	void SetModel(QSplat_Model *q);
+
+	// Tell the GUI to use this model
+	void ClearModel();
 
 	// Query whether we are dragging the object
 	bool dragging()

@@ -30,10 +30,16 @@ Leland Stanford Junior University.  All Rights Reserved.
 #define REFINE_DELAY	0.5f
 #define SHOWLIGHT_TIME	2.5f
 #define SHOWPROG_TIME	1.5f
+#define MAX_CHAR 128
 
 // The GUI global variable
 QSplatGUI *theQSplatGUI;
 
+void QSplatGUI::ClearModel()
+{
+	if (theQSplat_Model)
+		delete theQSplat_Model;
+}
 // Tell the GUI to use this model
 void QSplatGUI::SetModel(QSplat_Model *q)
 {
@@ -60,7 +66,21 @@ void QSplatGUI::SetModel(QSplat_Model *q)
 	}
 }
 
-
+void QSplatGUI::draw_string(const char* str)
+{
+	static int isFistCall = 1;
+	static GLuint lists;
+	if (isFistCall)
+	{
+		isFistCall = 0;
+		lists = glGenLists(MAX_CHAR);
+		wglUseFontBitmaps(wglGetCurrentDC(),0,MAX_CHAR,lists);
+	}
+	for(;*str != '\0' ; ++str)
+	{
+		glCallList(lists + *str);
+	}
+}
 // Do a redraw!  That's why we're here...
 void QSplatGUI::redraw()
 {
@@ -97,6 +117,17 @@ void QSplatGUI::redraw()
 	if ((int)whichDriver < (int)SOFTWARE_GLDRAWPIXELS)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	//glPushMatrix();
+	//glLoadIdentity();
+	// show frame per second
+	char str[MAX_CHAR];
+	sprintf(str, "%.1lf\n",framePerSecond);
+	puts(str);
+	glColor3f(0,0,0);
+	glRasterPos3f(-5,0,0);
+	draw_string(str);
+	swapbuffers();
+	//glPopMatrix();
 
 	// Set up projection and modelview matrices, and lighting
 	setup_matrices(true);
@@ -552,7 +583,7 @@ void QSplatGUI::setupGLstate()
 	glDisable(GL_LIGHTING);
 	glShadeModel(GL_FLAT);
 
-	glClearColor(0, 0, 0, 1);
+	glClearColor(0.2f, 0.2f, 0.4f, 1);
 	glClearDepth(1);
 }
 
