@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLWidget", "GLWidget\GLWidget.vcproj", "{EC3E55F1-0B0E-479B-9F79-2546892E01CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC3E55F1-0B0E-479B-9F79-2546892E01CB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EC3E55F1-0B0E-479B-9F79-2546892E01CB}.Debug|Win32.Build.0 = Debug|Win32
+		{EC3E55F1-0B0E-479B-9F79-2546892E01CB}.Release|Win32.ActiveCfg = Release|Win32
+		{EC3E55F1-0B0E-479B-9F79-2546892E01CB}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		QtVersion = 4.8.1
+	EndGlobalSection
+EndGlobal
