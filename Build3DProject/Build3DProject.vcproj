@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Qt\4.8.1\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;C:\Qt\4.8.1\include\QtCore&quot;;&quot;C:\Qt\4.8.1\include\QtMultimedia&quot;;&quot;C:\Qt\4.8.1\include\QtGui&quot;;&quot;C:\Qt\4.8.1\include\Qt3Support&quot;;&quot;C:\Qt\4.8.1\include\QtOpenGL&quot;"
+				AdditionalIncludeDirectories="D:\Qt4.8.1\include;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;D:\Qt4.8.1\include\QtCore;D:\Qt4.8.1\include\QtMultimedia;D:\Qt4.8.1\include\QtGui;D:\Qt4.8.1\include\Qt3Support;D:\Qt4.8.1\include\QtOpenGL"
 				PreprocessorDefinitions="WIN32;QT_LARGEFILE_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_OPENGL_LIB;$(NOINHERIT)"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
@@ -58,9 +58,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="C:\Qt\4.8.1\lib\qtmaind.lib C:\Qt\4.8.1\lib\QtCored4.lib C:\Qt\4.8.1\lib\QtGuid4.lib C:\Qt\4.8.1\lib\QtMultimediad4.lib C:\Qt\4.8.1\lib\QtOpenGLd4.lib opengl32.lib glu32.lib comctl32.lib C:\Qt\4.8.1\lib\Qt3Supportd4.lib comdlg32.lib osgd.lib osgUtild.lib osgViewerd.lib osgDBd.lib osgManipulatord.lib osgGAd.lib opencv_core231d.lib opencv_highgui231d.lib opencv_imgproc231d.lib opencv_calib3d231d.lib opencv_features2d231d.lib opencv_ml231d.lib opencv_objdetect231d.lib opencv_video231d.lib opencv_contrib231d.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtMultimediad4.lib QtOpenGLd4.lib opengl32.lib glu32.lib comctl32.lib Qt3Supportd4.lib comdlg32.lib osgd.lib osgUtild.lib osgViewerd.lib osgDBd.lib osgManipulatord.lib osgGAd.lib opencv_core231d.lib opencv_highgui231d.lib opencv_imgproc231d.lib opencv_calib3d231d.lib opencv_features2d231d.lib opencv_ml231d.lib opencv_objdetect231d.lib opencv_video231d.lib opencv_contrib231d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="C:\Qt\4.8.1\lib"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="false"
 				SubSystem="1"
 			/>
@@ -111,7 +111,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Qt\4.8.1\include;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;C:\Qt\4.8.1\include\QtCore;C:\Qt\4.8.1\include\QtOpenGL;C:\Qt\4.8.1\include\QtGui;C:\Qt\4.8.1\include\QtMultimedia;C:\Qt\4.8.1\include\Qt3Support"
+				AdditionalIncludeDirectories="D:\Qt4.8.1\bin;D:\Qt4.8.1\include;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;D:\Qt4.8.1\include\QtCore;D:\Qt4.8.1\include\QtOpenGL;D:\Qt4.8.1\include\QtGui;D:\Qt4.8.1\include\QtMultimedia;D:\Qt4.8.1\include\Qt3Support"
 				PreprocessorDefinitions="WIN32;QT_LARGEFILE_SUPPORT;QT_CORE_LIB;QT_OPENGL_LIB;$(NOINHERIT)"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
@@ -129,9 +129,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="OpenThreadsd.lib osgd.lib osgDBd.lib osgFXd.lib osgGAd.lib osgManipulatord.lib osgParticled.lib osgShadowd.lib osgSimd.lib osgTerraind.lib osgTextd.lib osgUtild.lib osgViewerd.lib"
-				AdditionalDependencies="C:\Qt\4.8.1\lib\qtmaind.lib C:\Qt\4.8.1\lib\QtCored4.lib C:\Qt\4.8.1\lib\QtGuid4.lib C:\Qt\4.8.1\lib\QtMultimediad4.lib C:\Qt\4.8.1\lib\QtOpenGLd4.lib opengl32.lib glu32.lib comctl32.lib C:\Qt\4.8.1\lib\Qt3Supportd4.lib comdlg32.lib osgd.lib osgUtild.lib osgViewerd.lib osgDBd.lib osgManipulatord.lib osgGAd.lib opencv_core231d.lib opencv_highgui231d.lib opencv_imgproc231d.lib opencv_calib3d231d.lib opencv_features2d231d.lib opencv_ml231d.lib opencv_objdetect231d.lib opencv_video231d.lib opencv_contrib231d.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtMultimediad4.lib QtOpenGLd4.lib opengl32.lib glu32.lib comctl32.lib Qt3Supportd4.lib comdlg32.lib osgd.lib osgUtild.lib osgViewerd.lib osgDBd.lib osgManipulatord.lib osgGAd.lib opencv_core231d.lib opencv_highgui231d.lib opencv_imgproc231d.lib opencv_calib3d231d.lib opencv_features2d231d.lib opencv_ml231d.lib opencv_objdetect231d.lib opencv_video231d.lib opencv_contrib231d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="&quot;C:\Qt\4.8.1\lib&quot;;.\Math\LM_Lib"
+				AdditionalLibraryDirectories=".\Math\LM_Lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 			/>
@@ -302,8 +302,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing mainwindow.h..."
-						CommandLine="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-IC:\Qt\4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-IC:\Qt\4.8.1\include\QtCore&quot; &quot;-IC:\Qt\4.8.1\include\QtOpenGL&quot; &quot;-IC:\Qt\4.8.1\include\QtGui&quot; &quot;-IC:\Qt\4.8.1\include\QtMultimedia&quot; &quot;-IC:\Qt\4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;;$(InputPath)"
+						CommandLine="&quot;D:\Qt4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-ID:\Qt4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-ID:\Qt4.8.1\include\QtCore&quot; &quot;-ID:\Qt4.8.1\include\QtOpenGL&quot; &quot;-ID:\Qt4.8.1\include\QtGui&quot; &quot;-ID:\Qt4.8.1\include\QtMultimedia&quot; &quot;-ID:\Qt4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;D:\Qt4.8.1\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
@@ -380,8 +380,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing thumbnailthread.h..."
-						CommandLine="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-IC:\Qt\4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-IC:\Qt\4.8.1\include\QtCore&quot; &quot;-IC:\Qt\4.8.1\include\QtOpenGL&quot; &quot;-IC:\Qt\4.8.1\include\QtGui&quot; &quot;-IC:\Qt\4.8.1\include\QtMultimedia&quot; &quot;-IC:\Qt\4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;;$(InputPath)"
+						CommandLine="&quot;D:\Qt4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-ID:\Qt4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-ID:\Qt4.8.1\include\QtCore&quot; &quot;-ID:\Qt4.8.1\include\QtOpenGL&quot; &quot;-ID:\Qt4.8.1\include\QtGui&quot; &quot;-ID:\Qt4.8.1\include\QtMultimedia&quot; &quot;-ID:\Qt4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="&quot;D:\Qt4.8.1\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
@@ -406,8 +406,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing toolbar.h..."
-						CommandLine="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-IC:\Qt\4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-IC:\Qt\4.8.1\include\QtCore&quot; &quot;-IC:\Qt\4.8.1\include\QtOpenGL&quot; &quot;-IC:\Qt\4.8.1\include\QtGui&quot; &quot;-IC:\Qt\4.8.1\include\QtMultimedia&quot; &quot;-IC:\Qt\4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;;$(InputPath)"
+						CommandLine="&quot;D:\Qt4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-ID:\Qt4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-ID:\Qt4.8.1\include\QtCore&quot; &quot;-ID:\Qt4.8.1\include\QtOpenGL&quot; &quot;-ID:\Qt4.8.1\include\QtGui&quot; &quot;-ID:\Qt4.8.1\include\QtMultimedia&quot; &quot;-ID:\Qt4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;D:\Qt4.8.1\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
@@ -579,8 +579,8 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Moc&apos;ing colorswatch.cpp..."
-							CommandLine="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-IC:\Qt\4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-IC:\Qt\4.8.1\include\QtCore&quot; &quot;-IC:\Qt\4.8.1\include\QtOpenGL&quot; &quot;-IC:\Qt\4.8.1\include\QtGui&quot; &quot;-IC:\Qt\4.8.1\include\QtMultimedia&quot; &quot;-IC:\Qt\4.8.1\include\Qt3Support&quot; &quot;.\colorswatch.cpp&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\$(InputName).moc&quot;&#x0D;&#x0A;"
-							AdditionalDependencies="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;;.\colorswatch.cpp"
+							CommandLine="&quot;D:\Qt4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-ID:\Qt4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-ID:\Qt4.8.1\include\QtCore&quot; &quot;-ID:\Qt4.8.1\include\QtOpenGL&quot; &quot;-ID:\Qt4.8.1\include\QtGui&quot; &quot;-ID:\Qt4.8.1\include\QtMultimedia&quot; &quot;-ID:\Qt4.8.1\include\Qt3Support&quot; &quot;.\colorswatch.cpp&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\$(InputName).moc&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;D:\Qt4.8.1\bin\moc.exe&quot;;.\colorswatch.cpp"
 							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\$(InputName).moc&quot;"
 						/>
 					</FileConfiguration>
@@ -674,8 +674,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing colorswatch.h..."
-						CommandLine="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-IC:\Qt\4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-IC:\Qt\4.8.1\include\QtCore&quot; &quot;-IC:\Qt\4.8.1\include\QtOpenGL&quot; &quot;-IC:\Qt\4.8.1\include\QtGui&quot; &quot;-IC:\Qt\4.8.1\include\QtMultimedia&quot; &quot;-IC:\Qt\4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;;$(InputPath)"
+						CommandLine="&quot;D:\Qt4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-ID:\Qt4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-ID:\Qt4.8.1\include\QtCore&quot; &quot;-ID:\Qt4.8.1\include\QtOpenGL&quot; &quot;-ID:\Qt4.8.1\include\QtGui&quot; &quot;-ID:\Qt4.8.1\include\QtMultimedia&quot; &quot;-ID:\Qt4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;D:\Qt4.8.1\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
@@ -704,8 +704,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing textio.h..."
-						CommandLine="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-IC:\Qt\4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-IC:\Qt\4.8.1\include\QtCore&quot; &quot;-IC:\Qt\4.8.1\include\QtOpenGL&quot; &quot;-IC:\Qt\4.8.1\include\QtGui&quot; &quot;-IC:\Qt\4.8.1\include\QtMultimedia&quot; &quot;-IC:\Qt\4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;C:\Qt\4.8.1\bin\moc.exe&quot;;$(InputPath)"
+						CommandLine="&quot;D:\Qt4.8.1\bin\moc.exe&quot;   -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DQT_OPENGL_LIB &quot;-D$(NOINHERIT)\.&quot; -D_MBCS  &quot;-ID:\Qt4.8.1\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-ID:\Qt4.8.1\include\QtCore&quot; &quot;-ID:\Qt4.8.1\include\QtOpenGL&quot; &quot;-ID:\Qt4.8.1\include\QtGui&quot; &quot;-ID:\Qt4.8.1\include\QtMultimedia&quot; &quot;-ID:\Qt4.8.1\include\Qt3Support&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;D:\Qt4.8.1\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
